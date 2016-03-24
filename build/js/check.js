@@ -1,15 +1,16 @@
 
 function getMessage(a, b) {   
-    var sum = 0;
-    var length = 0;          
-    if(a){        
+    var sum = 0;  
+    var sum2 = 0;
+    var length = 0;
+    if(a === true){        
         return 'Я попал в ' + b;
     }
-    else if(!a){
+    else if(a === false){
         return 'Я никуда не попал';
     }
     
-    else if(typeof(a) === Number) {
+    else if(isFinite(a)){
         return 'Я прыгнул на ' + a * 100 + ' сантиметров'; 
     }
     
@@ -21,9 +22,12 @@ function getMessage(a, b) {
     } 
     
     else if((Array.isArray(a)) && (Array.isArray(b))) {
-        for(i=0; i < a.length; i++) {   
-        for(i=0; i < b.length; i++) 
-            length += a[i] * b[i];      
+          for(i=0; i < a.length; i++) {
+           
+          }
+         for(i=0; i < b.length; i++) {
+            
+            length += a[i] * b[i];
         }
         
         return 'Я прошёл ' + length + ' метров';
