@@ -1,21 +1,32 @@
-function getMessage(a:*, b:*=):string{
-    var a = true;
-    var b = 'abc';
-    if(typeof(a) === Boolean){
-        if(a === true){        
-            return alert('Я попал в [b]');
+
+function getMessage(a, b) {
+    var a = [11,11];
+    var b = [11,12];   
+    var sum = 0;
+    var length = 0;
+    if(a === true){        
+        return 'Я попал в ' + b;
+    }
+    else if(a === false){
+        return 'Я никуда не попал';
+    } 
+    else if(a  instanceof Number) {
+        return 'Я прыгнул на ' + a * 100 + ' сантиметров'; 
+    }
+    else if((a instanceof Array) && (b instanceof Array === false)) {           
+        for(i=0; i < a.length; i++) {
+            sum += a[i];             
         }
-        else(a === false){
-            return alert('Я никуда не попал');
-        }  
-    }
-    else(typeof(a) === Number){
-        return alert('Я прыгнул на [a] * 100 сантиметров');
-    }
-    else if(typeof(a) === Array){
-        return alert('Я прошел [sum] шагов');
-    }
-    else if((typeof(a) === Array) && (typeof(b) === Array)){
-        return alert('Я прошел [length] метров');
+        return 'Я прошел ' + sum + ' шагов';                
+    } 
+    else if((a instanceof Array) && (b instanceof Array)) {
+        for(i=0; i < a.length; i++) {
+            sum += a[i];             
+        }
+        for(i=0; i < b.length; i++) {
+            length += b[i] + sum;             
+        }
+        return 'Я прошёл ' + length + ' метров';
     }
 }
+
