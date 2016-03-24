@@ -1,8 +1,8 @@
 
 function getMessage(a, b) {   
     var sum = 0;
-    var length = 0;  
-    
+    var sum2 = 0;
+    var length = 0;      
     if(a === true){        
         return 'Я попал в ' + b;
     }
@@ -18,16 +18,18 @@ function getMessage(a, b) {
         for(i=0; i < a.length; i++) {
             sum += a[i];             
         }
-        return 'Я прошел ' + sum + ' шагов';                
+        return 'Я прошёл ' + sum + ' шагов';                
     } 
     
     else if((Array.isArray(a)) && (Array.isArray(b))) {
         for(i=0; i < a.length; i++) {
-            sum += a[i];             
-        }
+            sum += a[i];    }         
+        
         for(i=0; i < b.length; i++) {
-            length += b[i] + sum;             
+            sum2 += b[i];       
+            
         }
+        var length = sum2 + sum;
         return 'Я прошёл ' + length + ' метров';
     }
 }
