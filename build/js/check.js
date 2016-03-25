@@ -25,10 +25,7 @@ function getMessage(a, b) {
         for(i=0; i < a.length; i++) {
         }
         for(i=0; i < b.length; i++) {
-            sum2.push(a[i] * b[i]);   
-        }
-        for(i=0; i < sum2.length; i++) {
-            length += sum2[i];
+            length += a[i] * b[i];
         }
         return 'Я прошёл ' + length + ' метров';
     }
