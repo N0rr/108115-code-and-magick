@@ -1,7 +1,7 @@
 
 function getMessage(a, b) {   
     var sum = 0;  
-    var sum2 = 0;
+    var sum2 = [];
     var length = 0;    
     if(a === true){        
         return 'Я попал в ' + b;
@@ -25,10 +25,11 @@ function getMessage(a, b) {
         for(i=0; i < a.length; i++) {
         }
         for(i=0; i < b.length; i++) {
-            length += a[i] * b[i];
-            
+            sum2.push(a[i] * b[i]);   
         }
-        
+        for(i=0; i < sum2.length; i++) {
+            length += sum2[i];
+        }
         return 'Я прошёл ' + length + ' метров';
     }
 }
