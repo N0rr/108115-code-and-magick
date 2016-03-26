@@ -378,18 +378,62 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
-      switch (this.state.currentStatus) {
+      var canvasPo = [120,145,170,195];
+      this.ctx = this.canvas.getContext('2d'); 
+      this.ctx.fillStyle = '#ffffff';
+      this.ctx.beginPath();
+      this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+      this.ctx.shadowOffsetX = 10;
+      this.ctx.shadowOffsetY = 10;
+      this.ctx.shadowBlur = 5;
+      this.ctx.moveTo(300,90);  
+      this.ctx.lineTo(325,65);
+      this.ctx.lineTo(600,65);
+      this.ctx.lineTo(625,90);
+      this.ctx.lineTo(625,200);       
+      this.ctx.lineTo(600,225);
+      this.ctx.lineTo(325,225);
+      this.ctx.lineTo(300,200);
+      this.ctx.fill();
+      this.ctx.closePath();
+      this.ctx.fillStyle = '#000';
+      this.ctx.shadowColor = 'rgba(0, 0, 0, 0.0)';
+      this.ctx.font = '16px PT Mono';
+      var canvasText = {
+        canvasWellcome: ['Добро Пожаловать в игру!', 'нажмите пробел для старта.'],
+        canvasWon: ['Ваш фаербол поразил цель,', 'нажмите пробел, чтобы', 'продолжить'],
+        canvasFail: ['Вы никуда не попали,', 'нажмите пробел, чтобы', 'продолжить.'],
+        canvasPause: ['Игра на паузе, нажмите', 'нажмите пробел чтобы', 'продолжить.']
+      };
+        
+      switch (this.state.currentStatus) { 
         case Verdict.WIN:
-          console.log('you have won!');
+          for (var i = 0; i < Math.min(canvasText.canvasWon.length, canvasPo.length); i++) {
+            this.ctx.fillText(canvasText.canvasWon[i],325,canvasPo[i]);
+          }
+              
+          return     
           break;
-        case Verdict.FAIL:
-          console.log('you have failed!');
-          break;
+        case Verdict.FAIL: 
+          for (var i = 0; i < Math.min(canvasText.canvasFail.length, canvasPo.length); i++) {
+            this.ctx.fillText(canvasText.canvasFail[i],325,canvasPo[i]);
+          }
+              
+          return     
+          break;  
         case Verdict.PAUSE:
-          console.log('game is on pause!');
-          break;
+          for (var i = 0; i < Math.min(canvasText.canvasPause.length, canvasPo.length); i++) {
+            this.ctx.fillText(canvasText.canvasPause[i],325,canvasPo[i]);
+          }
+              
+          return     
+          break; 
         case Verdict.INTRO:
-          console.log('welcome to the game! Press Space to start');
+          for (var i = 0; i < Math.min(canvasText.canvasWellcome.length, canvasPo.length); i++) {
+            this.ctx.fillText(canvasText.canvasWellcome[i],325,canvasPo[i]);
+          }
+              
+          return     
           break;
       }
     },

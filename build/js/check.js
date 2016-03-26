@@ -21,8 +21,9 @@ function getMessage(a, b) {
     } 
     
     else if((Array.isArray(a)) && (Array.isArray(b))) {
-        for(i=0; i < a.length; i++) {
+        for(i=0; i < Math.min(a.length, b.length); i++) {
             length += a[i] * b[i];
+            
         }
         return 'Я прошёл ' + length + ' метров';
     }
