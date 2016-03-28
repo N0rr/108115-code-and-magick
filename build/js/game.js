@@ -379,7 +379,7 @@
      */
     _drawPauseScreen: function() {
       var canvasPo = [120,145,170,195];
-      this.ctx = this.canvas.getContext('2d'); 
+      var canvasLeftPo = 355;
       this.ctx.fillStyle = '#ffffff';
       this.ctx.beginPath();
       this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
@@ -396,44 +396,30 @@
       this.ctx.lineTo(300,200);
       this.ctx.fill();
       this.ctx.closePath();
-      this.ctx.fillStyle = '#000';
+      this.ctx.fillStyle = '#000'; 
       this.ctx.shadowColor = 'rgba(0, 0, 0, 0.0)';
       this.ctx.font = '16px PT Mono';
-      var canvasText = {
-        canvasWellcome: ['Добро Пожаловать в игру!', 'нажмите пробел для старта.'],
-        canvasWon: ['Ваш фаербол поразил цель,', 'нажмите пробел, чтобы', 'продолжить'],
-        canvasFail: ['Вы никуда не попали,', 'нажмите пробел, чтобы', 'продолжить.'],
-        canvasPause: ['Игра на паузе, нажмите', 'нажмите пробел чтобы', 'продолжить.']
-      };
+      var canvasWellcome = ['Добро Пожаловать в игру!', 'нажмите пробел чтобы', 'продолжить.'];
+      var canvasWon = ['Ваш фаербол поразил цель,',  'нажмите пробел чтобы', 'продолжить.'];
+      var canvasFail = ['Вы никуда не попали,',  'нажмите пробел чтобы', 'продолжить.'];
+      var canvasPause = ['Игра на паузе, нажмите', 'пробел чтобы', 'продолжить.'];
+      var arrr = '';
+      function canvasPrint(arrr) {
+        for (var i = 0; i < Math.min(canvasWellcome.length, canvasPo.length); i++) {
+          arrr += canvasWellcome[i];
+        }
+        return arrr;
+      }
         
       switch (this.state.currentStatus) { 
         case Verdict.WIN:
-          for (var i = 0; i < Math.min(canvasText.canvasWon.length, canvasPo.length); i++) {
-            this.ctx.fillText(canvasText.canvasWon[i],325,canvasPo[i]);
-          }
-              
-          return     
           break;
         case Verdict.FAIL: 
-          for (var i = 0; i < Math.min(canvasText.canvasFail.length, canvasPo.length); i++) {
-            this.ctx.fillText(canvasText.canvasFail[i],325,canvasPo[i]);
-          }
-              
-          return     
           break;  
         case Verdict.PAUSE:
-          for (var i = 0; i < Math.min(canvasText.canvasPause.length, canvasPo.length); i++) {
-            this.ctx.fillText(canvasText.canvasPause[i],325,canvasPo[i]);
-          }
-              
-          return     
           break; 
         case Verdict.INTRO:
-          for (var i = 0; i < Math.min(canvasText.canvasWellcome.length, canvasPo.length); i++) {
-            this.ctx.fillText(canvasText.canvasWellcome[i],325,canvasPo[i]);
-          }
-              
-          return     
+          this.ctx.fillText(canvasPrint(arrr),canvasLeftPo,120);    
           break;
       }
     },
