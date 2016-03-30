@@ -381,10 +381,7 @@
       var canvasXposition = 355;
       var canvasYposition = 120;
       var lineHeight = 20;
-      var canvasWellcome = [];
-      var canvasWon = [];
-      var canvasFail = [];
-      var canvasPause = [];
+      var canvasText = [];
       this.ctx.fillStyle = '#ffffff';
       this.ctx.beginPath();
       this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
@@ -406,35 +403,23 @@
       this.ctx.font = '16px PT Mono';
       switch (this.state.currentStatus) { 
         case Verdict.WIN:
-          canvasWon = ['Ваш фаербол поразил цель,', 'нажмите пробел чтобы', 'продолжить.'];
+          canvasText = ['Ваш фаербол поразил цель,', 'нажмите пробел чтобы', 'продолжить.'];
           break;
         case Verdict.FAIL: 
-          canvasFail = ['Вы никуда не попали,', 'нажмите пробел чтобы', 'продолжить.'];
+          canvasText = ['Вы никуда не попали,', 'нажмите пробел чтобы', 'продолжить.'];
           break;  
         case Verdict.PAUSE:
-          canvasPause = ['Игра на паузе, нажмите', 'пробел чтобы', 'продолжить.'];
+          canvasText = ['Игра на паузе, нажмите', 'пробел чтобы', 'продолжить.'];
           break; 
         case Verdict.INTRO:
-          canvasWellcome = ['Добро Пожаловать в игру!', 'нажмите пробел чтобы', 'продолжить.'];
+          canvasText = ['Добро Пожаловать в игру!', 'нажмите пробел чтобы', 'продолжить.'];
           break;  
       }  
       
-      for (var i = 0; i < canvasWon.length; i++) {
-        this.ctx.fillText(canvasWon[i], canvasXposition, canvasYposition + i * lineHeight);
-      } 
-      
-      for (var i = 0; i < canvasFail.length; i++) {
-        this.ctx.fillText(canvasFail[i], canvasXposition, canvasYposition + i * lineHeight);
-      } 
-      
-      for (var i = 0; i < canvasPause.length; i++) {
-        this.ctx.fillText(canvasPause[i], canvasXposition, canvasYposition + i * lineHeight);
+      for (var i = 0; i < canvasText.length; i++) {
+        this.ctx.fillText(canvasText[i], canvasXposition, canvasYposition + i * lineHeight);
+        
       }
-      
-      for (var i = 0; i < canvasWellcome.length; i++) {
-        this.ctx.fillText(canvasWellcome[i], canvasXposition, canvasYposition + i * lineHeight);
-      } 
-      
     },
 
     /**
