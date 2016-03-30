@@ -378,50 +378,63 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
-      var canvasPo = [120,145,170,195];
-      var canvasLeftPo = 355;
+      var canvasXposition = 355;
+      var canvasYposition = 120;
+      var lineHeight = 20;
+      var canvasWellcome = [];
+      var canvasWon = [];
+      var canvasFail = [];
+      var canvasPause = [];
       this.ctx.fillStyle = '#ffffff';
       this.ctx.beginPath();
       this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
       this.ctx.shadowOffsetX = 10;
       this.ctx.shadowOffsetY = 10;
       this.ctx.shadowBlur = 5;
-      this.ctx.moveTo(300,90);  
-      this.ctx.lineTo(325,65);
-      this.ctx.lineTo(600,65);
-      this.ctx.lineTo(625,90);
-      this.ctx.lineTo(625,200);       
-      this.ctx.lineTo(600,225);
-      this.ctx.lineTo(325,225);
-      this.ctx.lineTo(300,200);
+      this.ctx.moveTo(300, 90);  
+      this.ctx.lineTo(325, 65);
+      this.ctx.lineTo(600, 65);
+      this.ctx.lineTo(625, 90);
+      this.ctx.lineTo(625, 200);       
+      this.ctx.lineTo(600, 225);
+      this.ctx.lineTo(325, 225);
+      this.ctx.lineTo(300, 200);
       this.ctx.fill();
       this.ctx.closePath();
       this.ctx.fillStyle = '#000'; 
       this.ctx.shadowColor = 'rgba(0, 0, 0, 0.0)';
       this.ctx.font = '16px PT Mono';
-      var canvasWellcome = ['Добро Пожаловать в игру!', 'нажмите пробел чтобы', 'продолжить.'];
-      var canvasWon = ['Ваш фаербол поразил цель,',  'нажмите пробел чтобы', 'продолжить.'];
-      var canvasFail = ['Вы никуда не попали,',  'нажмите пробел чтобы', 'продолжить.'];
-      var canvasPause = ['Игра на паузе, нажмите', 'пробел чтобы', 'продолжить.'];
-      var arrr = '';
-      function canvasPrint(arrr) {
-        for (var i = 0; i < Math.min(canvasWellcome.length, canvasPo.length); i++) {
-          arrr += canvasWellcome[i];
-        }
-        return arrr;
-      }
-        
       switch (this.state.currentStatus) { 
         case Verdict.WIN:
+          canvasWon = ['Ваш фаербол поразил цель,', 'нажмите пробел чтобы', 'продолжить.'];
           break;
         case Verdict.FAIL: 
+          canvasFail = ['Вы никуда не попали,', 'нажмите пробел чтобы', 'продолжить.'];
           break;  
         case Verdict.PAUSE:
+          canvasPause = ['Игра на паузе, нажмите', 'пробел чтобы', 'продолжить.'];
           break; 
         case Verdict.INTRO:
-          this.ctx.fillText(canvasPrint(arrr),canvasLeftPo,120);    
-          break;
+          canvasWellcome = ['Добро Пожаловать в игру!', 'нажмите пробел чтобы', 'продолжить.'];
+          break;  
+      }  
+      
+      for (var i = 0; i < canvasWon.length; i++) {
+        this.ctx.fillText(canvasWon[i], canvasXposition, canvasYposition + i * lineHeight);
+      } 
+      
+      for (var i = 0; i < canvasFail.length; i++) {
+        this.ctx.fillText(canvasFail[i], canvasXposition, canvasYposition + i * lineHeight);
+      } 
+      
+      for (var i = 0; i < canvasPause.length; i++) {
+        this.ctx.fillText(canvasPause[i], canvasXposition, canvasYposition + i * lineHeight);
       }
+      
+      for (var i = 0; i < canvasWellcome.length; i++) {
+        this.ctx.fillText(canvasWellcome[i], canvasXposition, canvasYposition + i * lineHeight);
+      } 
+      
     },
 
     /**
