@@ -378,19 +378,48 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
-      switch (this.state.currentStatus) {
+      var canvasXposition = 355;
+      var canvasYposition = 120;
+      var lineHeight = 20;
+      var canvasText = [];
+      function drowCnv(ctx, startX, startY, dotX, dotY) {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY + 25);
+        ctx.lineTo(startX + 25, startY);
+        ctx.lineTo(dotX, startY);
+        ctx.lineTo(dotX + 25, startY + 25);
+        ctx.lineTo(dotX + 25, dotY);       
+        ctx.lineTo(dotX, dotY + 25);
+        ctx.lineTo(startX + 25, dotY + 25);
+        ctx.lineTo(startX, dotY);
+        ctx.fill();
+        ctx.closePath();
+      }
+      
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      drowCnv(this.ctx, 310, 75, 610, 210);
+      this.ctx.fillStyle = '#fff';
+      drowCnv(this.ctx, 300, 65, 600, 200);
+      this.ctx.fillStyle = '#000'; 
+      this.ctx.font = '16px PT Mono';
+      switch (this.state.currentStatus) { 
         case Verdict.WIN:
-          console.log('you have won!');
+          canvasText = ['Ваш фаербол поразил цель,', 'нажмите пробел чтобы', 'продолжить.'];
           break;
-        case Verdict.FAIL:
-          console.log('you have failed!');
-          break;
+        case Verdict.FAIL: 
+          canvasText = ['Вы никуда не попали,', 'нажмите пробел чтобы', 'продолжить.'];
+          break;  
         case Verdict.PAUSE:
-          console.log('game is on pause!');
-          break;
+          canvasText = ['Игра на паузе, нажмите', 'пробел чтобы', 'продолжить.'];
+          break; 
         case Verdict.INTRO:
-          console.log('welcome to the game! Press Space to start');
-          break;
+          canvasText = ['Добро Пожаловать в игру!', 'нажмите пробел чтобы', 'продолжить.'];
+          break;  
+      }  
+      
+      for (var i = 0; i < canvasText.length; i++) {
+        this.ctx.fillText(canvasText[i], canvasXposition, canvasYposition + i * lineHeight);
+        
       }
     },
 
