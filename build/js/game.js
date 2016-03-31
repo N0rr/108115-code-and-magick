@@ -382,24 +382,25 @@
       var canvasYposition = 120;
       var lineHeight = 20;
       var canvasText = [];
-      this.ctx.fillStyle = '#ffffff';
-      this.ctx.beginPath();
-      this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-      this.ctx.shadowOffsetX = 10;
-      this.ctx.shadowOffsetY = 10;
-      this.ctx.shadowBlur = 5;
-      this.ctx.moveTo(300, 90);  
-      this.ctx.lineTo(325, 65);
-      this.ctx.lineTo(600, 65);
-      this.ctx.lineTo(625, 90);
-      this.ctx.lineTo(625, 200);       
-      this.ctx.lineTo(600, 225);
-      this.ctx.lineTo(325, 225);
-      this.ctx.lineTo(300, 200);
-      this.ctx.fill();
-      this.ctx.closePath();
+      function drowCnv(ctx, startX, startY, dotX, dotY) {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY + 25);
+        ctx.lineTo(startX + 25, startY);
+        ctx.lineTo(dotX, startY);
+        ctx.lineTo(dotX + 25, startY + 25);
+        ctx.lineTo(dotX + 25, dotY);       
+        ctx.lineTo(dotX, dotY + 25);
+        ctx.lineTo(startX + 25, dotY + 25);
+        ctx.lineTo(startX, dotY);
+        ctx.fill();
+        ctx.closePath();
+      }
+      
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      drowCnv(this.ctx, 310, 75, 610, 210);
+      this.ctx.fillStyle = '#fff';
+      drowCnv(this.ctx, 300, 65, 600, 200);
       this.ctx.fillStyle = '#000'; 
-      this.ctx.shadowColor = 'rgba(0, 0, 0, 0.0)';
       this.ctx.font = '16px PT Mono';
       switch (this.state.currentStatus) { 
         case Verdict.WIN:
