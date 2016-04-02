@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  //var browserCookies = require('browser-cookies');//
+  var browserCookies = require('browser-cookies');
   var formContainer = document.querySelector('.overlay-container');
   var formOpenButton = document.querySelector('.reviews-controls-new');
   var formCloseButton = document.querySelector('.review-form-close');
@@ -13,8 +13,9 @@
   var tipText = document.querySelector('.review-fields-text');
   var formSubButton = document.querySelector('.review-submit');
   var formTip = document.querySelector('.review-fields');
-  var formTipp = document.querySelector('.overlay-container');
-  var reviewForm = document.querySelector('.review-form');
+  var formSubmit = document.querySelector('overlay');
+  formName.value = browserCookies.get('formName');
+  formCheckbox.value = browserCookies.get('formCheckbox');
   formSubButton.disabled = true;
   formName.required = true;
   function checked(a, b, c) {
@@ -31,7 +32,7 @@
   }
 
   function checkValid(a, b, c) {
-    if (a.value.length >= c) {
+    if (a.value.length > c) {
       b.classList.add('invisible');
     }
     if (a.value.length < c) {
@@ -44,45 +45,48 @@
       b.disabled = false;
       c.classList.add('invisible');
     }
-    if ((a.value.length < d) || (e.value.length < d)) {
+    if ((a.value.length <= d) || (e.value.length <= d)) {
       b.disabled = true;
       c.classList.remove('invisible');
     }
-    if ((f.required === false) && (a.value.length > d)) {
+    if ((f.required === false) && (a.value.length >= d)) {
       b.disabled = false;
     }
   }
-  formName.addEventListener('keyup', function() {   
-    checkValid(formName, tipName, 5);
+
+  formName.addEventListener('keydown', function() {
+    checkValid(formName, tipName, 5, formText);
   });
 
-  formText.addEventListener('keyup', function() {    
-    checkValid(formText, tipText, 5);
+  formText.addEventListener('keydown', function() {
+    checkValid(formText, tipText, 5, formText);
   });
 
-  formTipp.addEventListener('keyup', function() {    
+  formContainer.addEventListener('keydown', function() {
     tipClose(formName, formSubButton, formTip, 5, formText, formText);
   });
 
-  labelCheck.onclick = function() {    
-    checked(formCheckbox, formText, formSubButton);
+  labelCheck.onclick = function() {
+    checked(formCheckbox, formText, formSubButton, formName);
   };
 
   formOpenButton.onclick = function(evt) {
     evt.preventDefault();
     formContainer.classList.remove('invisible');
+    formName.focus();
   };
 
   formCloseButton.onclick = function(evt) {
     evt.preventDefault();
     formContainer.classList.add('invisible');
   };
-  
-  reviewForm.onsubmit = function(evt) {
+
+  formSubButton.onclick = function(evt) {
     evt.preventDefault();
-    var presentDay = Date.now();
-    var birthday = Date.parse('Jan 03, 1990');    
-    var coockielife = presentDay - birthday;
-    
+    browserCookies.set('formName', formName.value, {
+      expires: Date.now() - Date.parse('Jan 03, 1990')
+    });
+    browserCookies.set('formCheckbox', formCheckbox.value);
+    formSubmit.onclick();
   };
 })();
