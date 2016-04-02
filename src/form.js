@@ -50,23 +50,19 @@
       b.disabled = false;
     }
   }
-  formName.addEventListener('keyup', function(event) {
-    event.preventDefault();
+  formName.addEventListener('keyup', function() {
     checkValid(formName, tipName, 5);
   });
 
-  formText.addEventListener('keyup', function(event) {
-    event.preventDefault();
+  formText.addEventListener('keyup', function() {
     checkValid(formText, tipText, 5);
   });
 
-  formTipp.addEventListener('keyup', function(event) {
-    event.preventDefault();
+  formTipp.addEventListener('keyup', function() {
     tipClose(formName, formButton, formTip, 5, formText, formText);
   });
 
-  labelCheck.onclick = function(evt) {
-    evt.preventDefault();
+  labelCheck.onclick = function() {
     checked(formCheckbox, formText, formButton);
   };
 
