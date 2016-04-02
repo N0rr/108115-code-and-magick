@@ -17,7 +17,7 @@
   formName.required = true;
   function checked(a, b, c) {
     for (var i = 0; i < a.length; i++) {
-      if ((a[i].checked) && (a[i].value < 3)) {
+      if ((a[i].checked) && (a[i].value < 3) ) {
         b.required = true;
         c.disabled = true;
       }
@@ -59,11 +59,11 @@
   });
 
   formTipp.addEventListener('keyup', function() {
-    tipClose(formName, formButton, formTip, 5, formText, formText);
+    tipClose(formName, formButton, formTip, 5, formText);
   });
 
   labelCheck.onclick = function() {
-    checked(formCheckbox, formText, formButton);
+    checked(formCheckbox, formText, formButton, formText);
   };
 
   formOpenButton.onclick = function(evt) {
