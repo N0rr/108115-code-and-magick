@@ -18,13 +18,13 @@
   formCheckbox.value = browserCookies.get('formCheckbox');
   formSubButton.disabled = true;
   formName.required = true;
-  function checked(a, b, c) {
+  function checked(a, b, c, d) {
     for (var i = 0; i < a.length; i++) {
       if ((a[i].checked) && (a[i].value < 3)) {
         b.required = true;
         c.disabled = true;
       }
-      if ((a[i].checked) && (a[i].value >= 3)) {
+      if ((a[i].checked) && (a[i].value >= 3) && (d.value.length > 5)) {
         b.required = false;
         c.disabled = false;
       }
@@ -32,7 +32,7 @@
   }
 
   function checkValid(a, b, c) {
-    if (a.value.length > c) {
+    if (a.value.length >= c) {
       b.classList.add('invisible');
     }
     if (a.value.length < c) {
@@ -45,21 +45,21 @@
       b.disabled = false;
       c.classList.add('invisible');
     }
-    if ((a.value.length <= d) || (e.value.length <= d)) {
+    if ((a.value.length < d) || (e.value.length < d)) {
       b.disabled = true;
       c.classList.remove('invisible');
     }
-    if ((f.required === false) && (a.value.length >= d)) {
+    if ((f.required === false) && (a.value.length > d)) {
       b.disabled = false;
     }
   }
 
-  formName.addEventListener('keydown', function() {
-    checkValid(formName, tipName, 5, formText);
+  formName.addEventListener('keyup', function() {
+    checkValid(formName, tipName, 5, formSubButton);
   });
 
   formText.addEventListener('keydown', function() {
-    checkValid(formText, tipText, 5, formText);
+    checkValid(formText, tipText, 5);
   });
 
   formContainer.addEventListener('keydown', function() {
