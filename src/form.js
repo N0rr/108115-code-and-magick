@@ -59,7 +59,7 @@
   });
 
   formTipp.addEventListener('keyup', function() {
-    tipClose(formName, formButton, formTip, 5, formText);
+    tipClose(formName, formButton, formTip, 5, formText, formText);
   });
 
   labelCheck.onclick = function() {
