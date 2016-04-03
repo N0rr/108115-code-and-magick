@@ -15,39 +15,41 @@
   var formTipp = document.querySelector('.overlay-container');
   formButton.disabled = true;
   formName.required = true;
-  function checked(a, b, c) {
-    for (var i = 0; i < a.length; i++) {
-      if ((a[i].checked) && (a[i].value < 3) ) {
-        b.required = true;
-        c.disabled = true;
+  function checked(checkbox, formtext, button, tipname) {
+    for (var i = 0; i < checkbox.length; i++) {
+      if ((checkbox[i].checked) && (checkbox[i].value < 3)) {
+        formText.required = true;
+        button.disabled = true;
       }
-      if ((a[i].checked) && (a[i].value >= 3)) {
-        b.required = false;
-        c.disabled = false;
+      if ((checkbox[i].checked) && (checkbox[i].value >= 3)) {
+        formText.required = false;
+        if (tipname.contains('invisible')) {
+          button.disabled = false;
+        }
       }
     }
   }
 
-  function checkValid(a, b, c) {
-    if (a.value.length >= c) {
-      b.classList.add('invisible');
+  function checkValid(nameform, tipform, number) {
+    if (nameform.value.length >= number) {
+      tipform.classList.add('invisible');
     }
-    if (a.value.length < c) {
-      b.classList.remove('invisible');
+    if (nameform.value.length < number) {
+      tipform.classList.remove('invisible');
     }
   }
 
-  function tipClose(a, b, c, d, e, f) {
-    if ((a.value.length >= d) && (e.value.length >= d)) {
-      b.disabled = false;
-      c.classList.add('invisible');
+  function tipClose(formname, button, formtip, number, formtext) {
+    if ((formname.value.length >= number) && (formtext.value.length >= number)) {
+      button.disabled = false;
+      formTip.classList.add('invisible');
     }
-    if ((a.value.length < d) || (e.value.length < d)) {
-      b.disabled = true;
-      c.classList.remove('invisible');
+    if ((formname.value.length < number) || (formtext.value.length < number)) {
+      button.disabled = true;
+      formTip.classList.remove('invisible');
     }
-    if ((f.required === false) && (a.value.length > d)) {
-      b.disabled = false;
+    if ((formtext.required === false) && (formname.value.length >= number)) {
+      button.disabled = false;
     }
   }
   formName.addEventListener('keyup', function() {
@@ -59,12 +61,12 @@
   });
 
   formTipp.addEventListener('keyup', function() {
-    tipClose(formName, formButton, formTip, 5, formText, formText);
+    tipClose(formName, formButton, formTip, 5, formText);
   });
 
-  labelCheck.onclick = function() {
-    checked(formCheckbox, formText, formButton, formText);
-  };
+  labelCheck.addEventListener('click', function() {
+    checked(formCheckbox, formText, formButton, tipName);
+  });
 
   formOpenButton.onclick = function(evt) {
     evt.preventDefault();
