@@ -21,6 +21,7 @@
     checkforCookie = browserCookies.get('checkforCookie');
     document.querySelector('#review-mark-' + checkforCookie).checked = true;
   };
+
   cookieStart();
   formButton.disabled = true;
   formName.required = true;
