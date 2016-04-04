@@ -52,12 +52,36 @@
       button.disabled = false;
     }
   }
-  formName.addEventListener('keyup', function() {
+
+  formName.onkeyup = function() {
+    if (formName.value.length < 5) {
+      formName.setCustomValidity('Имя должно содержать не менее 5 символов');
+    }
+    if (formName.value.length >= 5) {
+      formName.setCustomValidity('');
+    }
+  };
+
+  formText.onkeyup = function() {
+    if (formText.value.length < 5) {
+      formText.setCustomValidity('Отзыв должен содержать не менее 4 символов');
+    }
+    if (formText.value.length >= 5) {
+      formText.setCustomValidity('');
+    }
+  };
+
+  formName.onkeyup = function() {
     checkValid(formName, tipName, 5);
-  });
+  };
+
+  formName.onfocus = function() {
+    checkValid(formName, tipName, 5);
+    checked(formCheckbox, formText, formButton, formName);
+  };
 
   formText.addEventListener('keyup', function() {
-    checkValid(formText, tipText, 5);
+    checkValid(formText, tipText, 4);
   });
 
   formTipp.addEventListener('keyup', function() {
@@ -71,6 +95,7 @@
   formOpenButton.onclick = function(evt) {
     evt.preventDefault();
     formContainer.classList.remove('invisible');
+    formName.focus();
   };
 
   formCloseButton.onclick = function(evt) {
