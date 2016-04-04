@@ -15,7 +15,7 @@
   var formTipp = document.querySelector('.overlay-container');
   formButton.disabled = true;
   formName.required = true;
-  function checked(checkbox, formtext, button, tipname) {
+  function checked(checkbox, formtext, button, formname) {
     for (var i = 0; i < checkbox.length; i++) {
       if ((checkbox[i].checked) && (checkbox[i].value < 3)) {
         formText.required = true;
@@ -23,7 +23,7 @@
       }
       if ((checkbox[i].checked) && (checkbox[i].value >= 3)) {
         formText.required = false;
-        if (tipname.contains('invisible')) {
+        if (formname.value.length >= 5) {
           button.disabled = false;
         }
       }
@@ -65,7 +65,7 @@
   });
 
   labelCheck.addEventListener('click', function() {
-    checked(formCheckbox, formText, formButton, tipName);
+    checked(formCheckbox, formText, formButton, formName);
   });
 
   formOpenButton.onclick = function(evt) {
