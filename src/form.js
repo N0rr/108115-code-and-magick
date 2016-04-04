@@ -15,7 +15,7 @@
   var formTipp = document.querySelector('.overlay-container');
   formButton.disabled = true;
   formName.required = true;
-  function checked(checkbox, formtext, button, formname) {
+  function checked(checkbox, formtext, button, formname, tip, tiptext) {
     for (var i = 0; i < checkbox.length; i++) {
       if ((checkbox[i].checked) && (checkbox[i].value < 3)) {
         formText.required = true;
@@ -23,73 +23,82 @@
       }
       if ((checkbox[i].checked) && (checkbox[i].value >= 3)) {
         formText.required = false;
-        if (formname.value.length >= 5) {
+        if (formname.validity.valid) {
           button.disabled = false;
+          tiptext.classList.add('invisible');
+          tip.classList.add('invisible');
         }
+      }
+      if ((!formtext.validity.valid) && (checkbox[i].checked) && (checkbox[i].value < 3)) {
+        tiptext.classList.remove('invisible');
+        tip.classList.remove('invisible');
+      }
+      if ((formname.validity.valid) && (checkbox[i].checked) && (checkbox[i].value < 3) && (formtext.validity.valid)) {
+        button.disabled = false;
       }
     }
   }
 
-  function checkValid(nameform, tipform, number) {
-    if (nameform.value.length >= number) {
+  function checkValid(nameform, tipform) {
+    if (nameform.validity.valid) {
       tipform.classList.add('invisible');
     }
-    if (nameform.value.length < number) {
+    if (!nameform.validity.valid) {
       tipform.classList.remove('invisible');
     }
   }
 
-  function tipClose(formname, button, formtip, number, formtext) {
-    if ((formname.value.length >= number) && (formtext.value.length >= number)) {
+  function tipClose(formname, button, formtip, formtext) {
+    if ((formname.validity.valid) && (formtext.validity.valid)) {
       button.disabled = false;
       formTip.classList.add('invisible');
     }
-    if ((formname.value.length < number) || (formtext.value.length < number)) {
+    if ((!formname.validity.valid) || (!formtext.validity.valid)) {
       button.disabled = true;
       formTip.classList.remove('invisible');
     }
-    if ((formtext.required === false) && (formname.value.length >= number)) {
+    if ((formtext.required === false) && (formname.validity.valid)) {
       button.disabled = false;
     }
   }
 
   formName.onkeyup = function() {
-    if (formName.value.length < 5) {
-      formName.setCustomValidity('Имя должно содержать не менее 5 символов');
+    if (formName.validity.valid) {
+      formName.setCustomValidity('Запомните это поле');
     }
-    if (formName.value.length >= 5) {
+    if (!formName.validity.valid) {
       formName.setCustomValidity('');
     }
   };
 
   formText.onkeyup = function() {
-    if (formText.value.length < 5) {
-      formText.setCustomValidity('Отзыв должен содержать не менее 4 символов');
+    if (formText.validity.valid) {
+      formText.setCustomValidity('Запомните это поле');
     }
-    if (formText.value.length >= 5) {
+    if (!formText.validity.valid) {
       formText.setCustomValidity('');
     }
   };
 
   formName.onkeyup = function() {
-    checkValid(formName, tipName, 5);
+    checkValid(formName, tipName);
   };
 
   formName.onfocus = function() {
-    checkValid(formName, tipName, 5);
-    checked(formCheckbox, formText, formButton, formName);
+    checkValid(formName, tipName);
+    checked(formCheckbox, formText, formButton, formName, formTip, tipText);
   };
 
   formText.addEventListener('keyup', function() {
-    checkValid(formText, tipText, 4);
+    checkValid(formText, tipText);
   });
 
   formTipp.addEventListener('keyup', function() {
-    tipClose(formName, formButton, formTip, 5, formText);
+    tipClose(formName, formButton, formTip, formText);
   });
 
   labelCheck.addEventListener('click', function() {
-    checked(formCheckbox, formText, formButton, formName);
+    checked(formCheckbox, formText, formButton, formName, formTip, tipText);
   });
 
   formOpenButton.onclick = function(evt) {
