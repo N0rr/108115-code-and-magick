@@ -15,8 +15,13 @@
   var formTip = document.querySelector('.review-fields');
   var formTipp = document.querySelector('.overlay-container');
   var formSubmit = document.querySelector('overlay');
-  formName.value = browserCookies.get('formName');
-  formCheckbox.value = browserCookies.get('formCheckbox');
+  var checkforCookie;
+  var cookieStart = function() {
+    formName.value = browserCookies.get('formName');
+    checkforCookie = browserCookies.get('checkforCookie');
+    document.querySelector('#review-mark-' + checkforCookie).checked = true;
+  };
+  cookieStart();
   formButton.disabled = true;
   formName.required = true;
   function checked(checkbox, formtext, button, formname) {
@@ -75,6 +80,13 @@
     }
   };
 
+  var cookieLife = function() {
+    var presentDate = new Date();
+    var presentYear = presentDate.getfullYear();
+    var birthday = new Date(presentYear + '-01-03');
+    return(cookieLife = Date.now - Date.now(birthday));
+  };
+
   formName.onkeyup = function() {
     checkValid(formName, tipName, 5);
   };
@@ -94,6 +106,7 @@
 
   labelCheck.addEventListener('click', function() {
     checked(formCheckbox, formText, formButton, formName);
+    return(checkforCookie = document.querySelector('input[name=review-mark]:checked').value);
   });
 
   formOpenButton.onclick = function(evt) {
@@ -110,9 +123,11 @@
   formButton.onclick = function(evt) {
     evt.preventDefault();
     browserCookies.set('formName', formName.value, {
-      expires: Date.now() - Date.parse('Jan 03, 1990')
+      expires: Date.now(cookieLife)
     });
-    browserCookies.set('formCheckbox', formCheckbox.value);
+    browserCookies.set('checkforCookie', checkforCookie, {
+      expires: Date.now(cookieLife)
+    });
     formSubmit.submit();
   };
 })();
