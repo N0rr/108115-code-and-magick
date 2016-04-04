@@ -11,64 +11,90 @@
   var labelCheck = document.querySelector('.review-form-group');
   var tipName = document.querySelector('.review-fields-name');
   var tipText = document.querySelector('.review-fields-text');
-  var formSubButton = document.querySelector('.review-submit');
+  var formButton = document.querySelector('.review-submit');
   var formTip = document.querySelector('.review-fields');
+  var formTipp = document.querySelector('.overlay-container');
   var formSubmit = document.querySelector('overlay');
   formName.value = browserCookies.get('formName');
   formCheckbox.value = browserCookies.get('formCheckbox');
-  formSubButton.disabled = true;
+  formButton.disabled = true;
   formName.required = true;
-  function checked(a, b, c, d) {
-    for (var i = 0; i < a.length; i++) {
-      if ((a[i].checked) && (a[i].value < 3)) {
-        b.required = true;
-        c.disabled = true;
+  function checked(checkbox, formtext, button, formname) {
+    for (var i = 0; i < checkbox.length; i++) {
+      if ((checkbox[i].checked) && (checkbox[i].value < 3)) {
+        formText.required = true;
+        button.disabled = true;
       }
-      if ((a[i].checked) && (a[i].value >= 3) && (d.value.length > 5)) {
-        b.required = false;
-        c.disabled = false;
+      if ((checkbox[i].checked) && (checkbox[i].value >= 3)) {
+        formText.required = false;
+        if (formname.value.length >= 5) {
+          button.disabled = false;
+        }
       }
     }
   }
 
-  function checkValid(a, b, c) {
-    if (a.value.length >= c) {
-      b.classList.add('invisible');
+  function checkValid(nameform, tipform, number) {
+    if (nameform.value.length >= number) {
+      tipform.classList.add('invisible');
     }
-    if (a.value.length < c) {
-      b.classList.remove('invisible');
-    }
-  }
-
-  function tipClose(a, b, c, d, e, f) {
-    if ((a.value.length >= d) && (e.value.length >= d)) {
-      b.disabled = false;
-      c.classList.add('invisible');
-    }
-    if ((a.value.length < d) || (e.value.length < d)) {
-      b.disabled = true;
-      c.classList.remove('invisible');
-    }
-    if ((f.required === false) && (a.value.length > d)) {
-      b.disabled = false;
+    if (nameform.value.length < number) {
+      tipform.classList.remove('invisible');
     }
   }
 
-  formName.addEventListener('keyup', function() {
-    checkValid(formName, tipName, 5, formSubButton);
-  });
+  function tipClose(formname, button, formtip, number, formtext) {
+    if ((formname.value.length >= number) && (formtext.value.length >= number)) {
+      button.disabled = false;
+      formTip.classList.add('invisible');
+    }
+    if ((formname.value.length < number) || (formtext.value.length < number)) {
+      button.disabled = true;
+      formTip.classList.remove('invisible');
+    }
+    if ((formtext.required === false) && (formname.value.length >= number)) {
+      button.disabled = false;
+    }
+  }
 
-  formText.addEventListener('keydown', function() {
-    checkValid(formText, tipText, 5);
-  });
-
-  formContainer.addEventListener('keydown', function() {
-    tipClose(formName, formSubButton, formTip, 5, formText, formText);
-  });
-
-  labelCheck.onclick = function() {
-    checked(formCheckbox, formText, formSubButton, formName);
+  formName.onkeyup = function() {
+    if (formName.value.length < 5) {
+      formName.setCustomValidity('Имя должно содержать не менее 5 символов');
+    }
+    if (formName.value.length >= 5) {
+      formName.setCustomValidity('');
+    }
   };
+
+  formText.onkeyup = function() {
+    if (formText.value.length < 5) {
+      formText.setCustomValidity('Отзыв должен содержать не менее 4 символов');
+    }
+    if (formText.value.length >= 5) {
+      formText.setCustomValidity('');
+    }
+  };
+
+  formName.onkeyup = function() {
+    checkValid(formName, tipName, 5);
+  };
+
+  formName.onfocus = function() {
+    checkValid(formName, tipName, 5);
+    checked(formCheckbox, formText, formButton, formName);
+  };
+
+  formText.addEventListener('keyup', function() {
+    checkValid(formText, tipText, 4);
+  });
+
+  formTipp.addEventListener('keyup', function() {
+    tipClose(formName, formButton, formTip, 5, formText);
+  });
+
+  labelCheck.addEventListener('click', function() {
+    checked(formCheckbox, formText, formButton, formName);
+  });
 
   formOpenButton.onclick = function(evt) {
     evt.preventDefault();
@@ -81,12 +107,12 @@
     formContainer.classList.add('invisible');
   };
 
-  formSubButton.onclick = function(evt) {
+  formButton.onclick = function(evt) {
     evt.preventDefault();
     browserCookies.set('formName', formName.value, {
       expires: Date.now() - Date.parse('Jan 03, 1990')
     });
     browserCookies.set('formCheckbox', formCheckbox.value);
-    formSubmit.onclick();
+    formSubmit.submit();
   };
 })();
