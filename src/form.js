@@ -12,30 +12,36 @@
   var tipText = document.querySelector('.review-fields-text');
   var formButton = document.querySelector('.review-submit');
   var formTip = document.querySelector('.review-fields');
-  var formTipp = document.querySelector('.overlay-container');
   formButton.disabled = true;
   formName.required = true;
   function checked(checkbox, formtext, button, formname, tip, tiptext) {
     for (var i = 0; i < checkbox.length; i++) {
-      if ((checkbox[i].checked) && (checkbox[i].value < 3)) {
-        formText.required = true;
-        button.disabled = true;
+      var check;
+      if (checkbox[i].checked && checkbox[i].value >= 3) {
+        check = true;
       }
-      if ((checkbox[i].checked) && (checkbox[i].value >= 3)) {
-        formText.required = false;
-        if (formname.validity.valid) {
-          button.disabled = false;
-          tiptext.classList.add('invisible');
-          tip.classList.add('invisible');
-        }
+      if (checkbox[i].checked && checkbox[i].value < 3) {
+        check = false;
       }
-      if ((!formtext.validity.valid) && (checkbox[i].checked) && (checkbox[i].value < 3)) {
-        tiptext.classList.remove('invisible');
-        tip.classList.remove('invisible');
-      }
-      if ((formname.validity.valid) && (checkbox[i].checked) && (checkbox[i].value < 3) && (formtext.validity.valid)) {
+    }
+    if (!check) {
+      formText.required = true;
+      button.disabled = true;
+    }
+    if (check) {
+      formText.required = false;
+      if (formname.validity.valid) {
         button.disabled = false;
+        tiptext.classList.add('invisible');
+        tip.classList.add('invisible');
       }
+    }
+    if (!formtext.validity.valid && !check) {
+      tiptext.classList.remove('invisible');
+      tip.classList.remove('invisible');
+    }
+    if (formname.validity.valid && check && formtext.validity.valid) {
+      button.disabled = false;
     }
   }
 
@@ -49,38 +55,20 @@
   }
 
   function tipClose(formname, button, formtip, formtext) {
-    if ((formname.validity.valid) && (formtext.validity.valid)) {
+    if (formname.validity.valid && formtext.validity.valid) {
       button.disabled = false;
       formTip.classList.add('invisible');
     }
-    if ((!formname.validity.valid) || (!formtext.validity.valid)) {
+    if (!formname.validity.valid || !formtext.validity.valid) {
       button.disabled = true;
       formTip.classList.remove('invisible');
     }
-    if ((formtext.required === false) && (formname.validity.valid)) {
+    if (formtext.required === false && formname.validity.valid) {
       button.disabled = false;
     }
   }
 
-  formName.onkeyup = function() {
-    if (formName.validity.valid) {
-      formName.setCustomValidity('Запомните это поле');
-    }
-    if (!formName.validity.valid) {
-      formName.setCustomValidity('');
-    }
-  };
-
-  formText.onkeyup = function() {
-    if (formText.validity.valid) {
-      formText.setCustomValidity('Запомните это поле');
-    }
-    if (!formText.validity.valid) {
-      formText.setCustomValidity('');
-    }
-  };
-
-  formName.onkeyup = function() {
+  formName.oninput = function() {
     checkValid(formName, tipName);
   };
 
@@ -89,13 +77,13 @@
     checked(formCheckbox, formText, formButton, formName, formTip, tipText);
   };
 
-  formText.addEventListener('keyup', function() {
+  formText.oninput = function() {
     checkValid(formText, tipText);
-  });
+  };
 
-  formTipp.addEventListener('keyup', function() {
+  formContainer.oninput = function() {
     tipClose(formName, formButton, formTip, formText);
-  });
+  };
 
   labelCheck.addEventListener('click', function() {
     checked(formCheckbox, formText, formButton, formName, formTip, tipText);
