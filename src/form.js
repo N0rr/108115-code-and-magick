@@ -36,10 +36,6 @@
         button.disabled = false;
         tiptext.classList.add('invisible');
         tip.classList.add('invisible');
-      } else if (formname.validity.valid) {
-        button.disabled = false;
-        tiptext.classList.add('invisible');
-        tip.classList.add('invisible');
       }
     }
   }
