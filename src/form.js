@@ -17,49 +17,43 @@
   var checkforCookie;
   var cookieStart = function() {
     formName.value = browserCookies.get('formName');
-    checkforCookie = browserCookies.get('checkforCookie');
+    checkforCookie = browserCookies.get('checkforCookie') || 3;
     document.querySelector('#review-mark-' + checkforCookie).checked = true;
   };
-
   cookieStart();
   formButton.disabled = true;
   formName.required = true;
   function checked(checkbox, formtext, button, formname, tip, tiptext) {
+    var check;
     for (var i = 0; i < checkbox.length; i++) {
-      var check;
       if (checkbox[i].checked && checkbox[i].value >= 3) {
         check = true;
-      }
-      if (checkbox[i].checked && checkbox[i].value < 3) {
+      } else if (checkbox[i].checked && checkbox[i].value < 3) {
         check = false;
       }
     }
     if (!check) {
       formText.required = true;
       button.disabled = true;
-    }
-    if (check) {
+      if (!formtext.validity.valid) {
+        tiptext.classList.remove('invisible');
+        tip.classList.remove('invisible');
+      }
+    } else {
       formText.required = false;
-      if (formname.validity.valid) {
+      tiptext.classList.add('invisible');
+      if (formname.validity.valid && formtext.validity.valid) {
         button.disabled = false;
         tiptext.classList.add('invisible');
         tip.classList.add('invisible');
       }
-    }
-    if (!formtext.validity.valid && !check) {
-      tiptext.classList.remove('invisible');
-      tip.classList.remove('invisible');
-    }
-    if (formname.validity.valid && check && formtext.validity.valid) {
-      button.disabled = false;
     }
   }
 
   function checkValid(nameform, tipform) {
     if (nameform.validity.valid) {
       tipform.classList.add('invisible');
-    }
-    if (!nameform.validity.valid) {
+    } else {
       tipform.classList.remove('invisible');
     }
   }
@@ -68,13 +62,9 @@
     if (formname.validity.valid && formtext.validity.valid) {
       button.disabled = false;
       formTip.classList.add('invisible');
-    }
-    if (!formname.validity.valid || !formtext.validity.valid) {
+    } else {
       button.disabled = true;
       formTip.classList.remove('invisible');
-    }
-    if (formtext.required === false && formname.validity.valid) {
-      button.disabled = false;
     }
   }
 
