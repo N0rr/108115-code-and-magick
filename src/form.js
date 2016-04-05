@@ -32,6 +32,7 @@
       }
     } else {
       formText.required = false;
+      tiptext.classList.add('invisible');
       if (formname.validity.valid && formtext.validity.valid) {
         button.disabled = false;
         tiptext.classList.add('invisible');
