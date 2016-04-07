@@ -15,23 +15,24 @@
 
   var getReview = function(data, container) {
     var clone = reviewClone.cloneNode(true);
+    reviewFilter.classList.remove('invisible');
     clone.querySelector('.review-text').textContent = data.description;
     container.appendChild(clone);
     var PhotoAvatar = new Image();
     var avatarLoadTimeout;
-    PhotoAvatar.onload = function() {
+    PhotoAvatar.onload = function(evt) {
       clearTimeout(avatarLoadTimeout);
-      clone.querySelector('.review-author').src = data.author.picture;
+      clone.querySelector('.review-author').src = evt.target.src;
+      clone.querySelector('.review-author').width = 124;
+      clone.querySelector('.review-author').height = 124;
     };
-    reviewClone.onerror = function() {
-      clone.classList.add('.review-load-failure');
+    PhotoAvatar.onerror = function() {
+      clone.classList.add('review-load-failure');
     };
     PhotoAvatar.src = data.author.picture;
     avatarLoadTimeout = setTimeout(function() {
       PhotoAvatar.src = '';
-      clone.classList.add('.review-load-failure');
     }, imgTimeOut);
-    reviewFilter.classList.remove('invisible');
     return clone;
   };
 
