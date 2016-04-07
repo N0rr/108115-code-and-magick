@@ -15,9 +15,14 @@
   }
   var reviews = [];
   var getReview = function(data, container) {
+    reviewFilter.classList.remove('invisible');
     var clone = reviewClone.cloneNode(true);
+    var reviewPreloader = document.createElement('div');
+    reviewContainer.appendChild(reviewPreloader);
+    reviewPreloader.classList.add('reviews-list-loading');
     reviewFilter.classList.remove('invisible');
     clone.querySelector('.review-text').textContent = data.description;
+    reviewContainer.removeChild(reviewPreloader);
     container.appendChild(clone);
     var PhotoAvatar = new Image();
     var avatarLoadTimeout;
@@ -28,27 +33,19 @@
       clone.querySelector('.review-author').height = 124;
     };
 
-    reviewClone.onerror = function() {
+    PhotoAvatar.onerror = function() {
       clone.classList.add('review-load-failure');
     };
 
     PhotoAvatar.src = data.author.picture;
     avatarLoadTimeout = setTimeout(function() {
       PhotoAvatar.src = '';
-      clone.classList.add('review-load-failure');
     }, imgTimeOut);
     return clone;
   };
 
   var getDataReviews = function(callback) {
     var xhr = new XMLHttpRequest();
-    xhr.onloadstart = function(evt) {
-      var reviewPreloader = evt.target.querySelectorAll('.review');
-      for (var i = 0; i < reviewPreloader.length; i++) {
-        reviewPreloader[i].classList.add('reviews-list-loading');
-      }
-    };
-
     xhr.onload = function(evt) {
       var dataReviews = JSON.parse(evt.target.response);
       callback(dataReviews);
