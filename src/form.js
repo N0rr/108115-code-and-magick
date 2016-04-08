@@ -14,9 +14,9 @@
   var formButton = document.querySelector('.review-submit');
   var formTip = document.querySelector('.review-fields');
   var formSubmit = document.querySelector('overlay');
-  var checkforCookie;
+  var checkforCookie = 0;
   var cookieStart = function() {
-    formName.value = browserCookies.get('formName');
+    formName.value = browserCookies.get('formName') || '';
     checkforCookie = browserCookies.get('checkforCookie') || 3;
     document.querySelector('#review-mark-' + checkforCookie).checked = true;
   };
