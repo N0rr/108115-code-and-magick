@@ -68,13 +68,6 @@
     }
   }
 
-  var cookieLife = function() {
-    var presentDate = new Date();
-    var presentYear = presentDate.getfullYear();
-    var birthday = new Date(presentYear + '-01-03');
-    return(cookieLife = Date.now - Date.now(birthday));
-  };
-
   formName.oninput = function() {
     checkValid(formName, tipName);
   };
@@ -110,6 +103,10 @@
 
   formButton.onclick = function(evt) {
     evt.preventDefault();
+    var presentDate = new Date();
+    var presentYear = presentDate.getfullYear();
+    var birthday = new Date(presentYear + '-01-03');
+    var cookieLife = presentDate.valueOf() - birthday.valueOf();
     browserCookies.set('formName', formName.value, {
       expires: Date.now(cookieLife)
     });
