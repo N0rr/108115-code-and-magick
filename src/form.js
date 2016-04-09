@@ -89,7 +89,6 @@
 
   labelCheck.addEventListener('click', function() {
     checked(formCheckbox, formText, formButton, formName, formTip, tipText);
-    return(checkforCookie = document.querySelector('input[name=review-mark]:checked').value);
   });
 
   formOpenButton.onclick = function(evt) {
@@ -111,6 +110,7 @@
     var timeAfterBirthday = new Date(presentDate.valueOf() - birthday.valueOf());
     var cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf()).toUTCString();
     var oneYear = 365 * 24 * 60 * 60 * 1000;
+    checkforCookie = document.querySelector('input[name=review-mark]:checked').value;
 
     if (birthday.valueOf() > presentDate.valueOf()) {
       cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf() + oneYear);
