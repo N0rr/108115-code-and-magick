@@ -13,9 +13,9 @@
   var tipText = document.querySelector('.review-fields-text');
   var formButton = document.querySelector('.review-submit');
   var formTip = document.querySelector('.review-fields');
-  var formSubmit = document.querySelector('overlay');  
-  var checkforCookie;  
-  var cookieStart = function() {    
+  var formSubmit = document.querySelector('overlay');
+  var checkforCookie;
+  var cookieStart = function() {
     formName.value = browserCookies.get('formName') || '';
     checkforCookie = browserCookies.get('checkforCookie') || 3;
     document.querySelector('#review-mark-' + checkforCookie).checked = true;
@@ -89,7 +89,7 @@
   };
 
   labelCheck.addEventListener('click', function() {
-    checked(formCheckbox, formText, formButton, formName, formTip, tipText);  
+    checked(formCheckbox, formText, formButton, formName, formTip, tipText);
   });
 
   formOpenButton.onclick = function(evt) {
@@ -111,7 +111,7 @@
     var timeAfterBirthday = new Date(presentDate.valueOf() - birthday.valueOf());
     var cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf()).toUTCString();
     var oneYear = 365 * 24 * 60 * 60 * 1000;
-    checkforCookie = document.querySelector('input[name=review-mark]:checked').value
+    checkforCookie = document.querySelector('input[name=review-mark]:checked').value;
 
     if (birthday.valueOf() > presentDate.valueOf()) {
       cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf() + oneYear);
