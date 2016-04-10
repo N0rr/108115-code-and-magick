@@ -18,6 +18,7 @@
   var cookieStart = function() {
     formName.value = browserCookies.get('formName') || '';
     checkforCookie = browserCookies.get('checkforCookie') || 3;
+    document.querySelector('#review-mark-' + checkforCookie).checked = true;
   };
 
   cookieStart();
@@ -118,7 +119,7 @@
     browserCookies.set('formName', formName.value, {
       expires: cookieLife
     });
-    browserCookies.set('checkforCookie', checkforCookie, {
+    browserCookies.set('checkforCookie', checkforCookie.value, {
       expires: cookieLife
     });
     formSubmit.submit();
