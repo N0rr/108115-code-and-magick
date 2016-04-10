@@ -13,7 +13,7 @@
   var tipText = document.querySelector('.review-fields-text');
   var formButton = document.querySelector('.review-submit');
   var formTip = document.querySelector('.review-fields');
-  var formSubmit = document.querySelector('overlay');
+  var formSubmit = document.querySelector('.overlay');
   var checkforCookie;
   var cookieStart = function() {
     formName.value = browserCookies.get('formName') || '';
@@ -102,7 +102,7 @@
     formContainer.classList.add('invisible');
   };
 
-  formButton.onclick = function(evt) {
+  formSubmit.onsubmit = function(evt) {
     evt.preventDefault();
 
     var presentDate = new Date();
