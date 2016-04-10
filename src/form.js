@@ -107,8 +107,8 @@
 
     var presentDate = new Date();
     var birthday = new Date(presentDate.getFullYear(), 1, 3);
-    var timeAfterBirthday = new Date(presentDate.valueOf() - birthday.valueOf());
-    var cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf()).toUTCString();
+    var timeAfterBirthday = presentDate.valueOf() - birthday.valueOf();
+    var cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf());
     var oneYear = 365 * 24 * 60 * 60 * 1000;
     checkforCookie = document.querySelector('input[name=review-mark]:checked');
 
