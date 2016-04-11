@@ -117,15 +117,14 @@
   };
 
   var setFiltrationEnabled = function() {
-    var filters = document.getElementsByName('reviews');
-    for (var i = 0; i < filters.length; ++i) {
-      filters[i].onclick = function() {
-        setFilterEnabled(this.id);
+    reviewFilter.addEventListener('click', function(evt) {
+      if (evt.target.checked) {
+        setFilterEnabled(evt.target.id);
         if (isNextPageAvailable(reviews, pageNumber, pageSize)) {
           reviewsMoreButton.classList.remove('invisible');
         }
-      };
-    }
+      }
+    });
   };
 
   var showMoreReviews = function() {
