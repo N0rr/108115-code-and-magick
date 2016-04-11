@@ -13,8 +13,9 @@
   var tipText = document.querySelector('.review-fields-text');
   var formButton = document.querySelector('.review-submit');
   var formTip = document.querySelector('.review-fields');
-  var formSubmit = document.querySelector('overlay');
+  var formSubmit = document.querySelector('.overlay');
   var checkforCookie;
+
   var cookieStart = function() {
     formName.value = browserCookies.get('formName') || '';
     checkforCookie = browserCookies.get('checkforCookie') || 3;
@@ -103,24 +104,26 @@
     formContainer.classList.add('invisible');
   };
 
-  formButton.onclick = function(evt) {
+  formSubmit.onsubmit = function(evt) {
     evt.preventDefault();
-
     var presentDate = new Date();
     var birthday = new Date(presentDate.getFullYear(), 1, 3);
-    var timeAfterBirthday = new Date(presentDate.valueOf() - birthday.valueOf());
-    var cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf()).toUTCString();
     var oneYear = 365 * 24 * 60 * 60 * 1000;
-    checkforCookie = document.querySelector('input[name=review-mark]:checked').value;
+    var oneDay = 24 * 60 * 60 * 1000;
+    var timeAfterBirthday = Math.floor((presentDate.valueOf() - birthday.valueOf()) / oneDay);
+    var cookieLife = new Date((timeAfterBirthday.valueOf() * oneDay) + presentDate.valueOf());
+
+    checkforCookie = document.querySelector('input[name=review-mark]:checked');
 
     if (birthday.valueOf() > presentDate.valueOf()) {
-      cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf() + oneYear);
+      cookieLife = new Date(cookieLife.valueOf() + oneYear);
     }
 
     browserCookies.set('formName', formName.value, {
       expires: cookieLife
     });
-    browserCookies.set('checkforCookie', checkforCookie, {
+
+    browserCookies.set('checkforCookie', checkforCookie.value, {
       expires: cookieLife
     });
     formSubmit.submit();
