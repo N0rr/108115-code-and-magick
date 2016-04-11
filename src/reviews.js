@@ -20,7 +20,7 @@
   var pageSize = 3;
   var pageNumber = 0;
   var filtredReviews = [];
-  
+
   var isNextPageAvailable = function(_reviews, _page, pagesize) {
     return _page < Math.floor(_reviews.length / pagesize);
   };
@@ -126,19 +126,19 @@
         }
       };
     }
-  };  
+  };
 
   var showMoreReviews = function() {
     reviewsMoreButton.classList.remove('invisible');
     reviewsMoreButton.addEventListener('click', function() {
-      if (isNextPageAvailable(filtredReviews, pageNumber, pageSize)) {        
+      if (isNextPageAvailable(filtredReviews, pageNumber, pageSize)) {
         pageNumber++;
         renderReviews(filtredReviews, pageNumber);
         reviewsMoreButton.classList.add('invisible');
         if (isNextPageAvailable(filtredReviews, pageNumber, pageSize)) {
           reviewsMoreButton.classList.remove('invisible');
-        } 
-      } 
+        }
+      }
     });
   };
 
