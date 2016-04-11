@@ -115,16 +115,16 @@
     checkforCookie = document.querySelector('input[name=review-mark]:checked');
 
     if (birthday.valueOf() > presentDate.valueOf()) {
-      cookieLife = Math.ceil(presentDate.valueOf() + timeAfterBirthday.valueOf() + oneYear);
+      cookieLife = Math.ceil(cookieLife + oneYear) * oneDay;
     } else {
-      cookieLife = Math.floor(presentDate.valueOf() + timeAfterBirthday.valueOf());
+      cookieLife = Math.floor(cookieLife) * oneDay;
     }
 
     browserCookies.set('formName', formName.value, {
-      expires: cookieLife * oneDay
+      expires: cookieLife
     });
     browserCookies.set('checkforCookie', checkforCookie.value, {
-      expires: cookieLife * oneDay
+      expires: cookieLife
     });
     formSubmit.submit();
   };
