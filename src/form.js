@@ -108,19 +108,23 @@
     var presentDate = new Date();
     var birthday = new Date(presentDate.getFullYear(), 1, 3);
     var timeAfterBirthday = presentDate.valueOf() - birthday.valueOf();
-    var cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf());
     var oneYear = 365 * 24 * 60 * 60 * 1000;
+    var oneDay = 24 * 60 * 60 * 1000;
+    var cookieLife = presentDate.valueOf() + timeAfterBirthday.valueOf() / oneDay;
+
     checkforCookie = document.querySelector('input[name=review-mark]:checked');
 
     if (birthday.valueOf() > presentDate.valueOf()) {
-      cookieLife = new Date(presentDate.valueOf() + timeAfterBirthday.valueOf() + oneYear);
+      cookieLife = Math.ceil(presentDate.valueOf() + timeAfterBirthday.valueOf() + oneYear);
+    } else {
+      cookieLife = Math.floor(presentDate.valueOf() + timeAfterBirthday.valueOf());
     }
 
     browserCookies.set('formName', formName.value, {
-      expires: cookieLife
+      expires: cookieLife * oneDay
     });
     browserCookies.set('checkforCookie', checkforCookie.value, {
-      expires: cookieLife
+      expires: cookieLife * oneDay
     });
     formSubmit.submit();
   };
