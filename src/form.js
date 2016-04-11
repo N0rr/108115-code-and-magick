@@ -107,17 +107,15 @@
 
     var presentDate = new Date();
     var birthday = new Date(presentDate.getFullYear(), 1, 3);
-    var timeAfterBirthday = presentDate.valueOf() - birthday.valueOf();
     var oneYear = 365 * 24 * 60 * 60 * 1000;
     var oneDay = 24 * 60 * 60 * 1000;
-    var cookieLife = presentDate.valueOf() + timeAfterBirthday.valueOf() / oneDay;
+    var timeAfterBirthday = Math.floor((presentDate.valueOf() - birthday.valueOf()) / oneDay);
+    var cookieLife = new Date((timeAfterBirthday.valueOf() * oneDay) + presentDate.valueOf());
 
     checkforCookie = document.querySelector('input[name=review-mark]:checked');
 
     if (birthday.valueOf() > presentDate.valueOf()) {
-      cookieLife = Math.ceil(cookieLife + oneYear) * oneDay;
-    } else {
-      cookieLife = Math.floor(cookieLife) * oneDay;
+      cookieLife = cookieLife + oneYear;
     }
 
     browserCookies.set('formName', formName.value, {
