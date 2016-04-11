@@ -1,6 +1,7 @@
 'use strict';
 
 (function() {
+  var browserCookies = require('browser-cookies');
   var formContainer = document.querySelector('.overlay-container');
   var formOpenButton = document.querySelector('.reviews-controls-new');
   var formCloseButton = document.querySelector('.review-form-close');
@@ -12,10 +13,20 @@
   var tipText = document.querySelector('.review-fields-text');
   var formButton = document.querySelector('.review-submit');
   var formTip = document.querySelector('.review-fields');
+  var formSubmit = document.querySelector('.overlay');
+  var checkforCookie;
+  var cookieStart = function() {
+    formName.value = browserCookies.get('formName') || '';
+    checkforCookie = browserCookies.get('checkforCookie') || 3;
+    document.querySelector('#review-mark-' + checkforCookie).checked = true;
+  };
+
+  cookieStart();
   formButton.disabled = true;
   formName.required = true;
   function checked(checkbox, formtext, button, formname, tip, tiptext) {
     var check;
+
     for (var i = 0; i < checkbox.length; i++) {
       if (checkbox[i].checked && checkbox[i].value >= 3) {
         check = true;
@@ -89,5 +100,30 @@
   formCloseButton.onclick = function(evt) {
     evt.preventDefault();
     formContainer.classList.add('invisible');
+  };
+
+  formSubmit.onsubmit = function(evt) {
+    evt.preventDefault();
+
+    var presentDate = new Date();
+    var birthday = new Date(presentDate.getFullYear(), 1, 3);
+    var oneYear = 365 * 24 * 60 * 60 * 1000;
+    var oneDay = 24 * 60 * 60 * 1000;
+    var timeAfterBirthday = Math.floor((presentDate.valueOf() - birthday.valueOf()) / oneDay);
+    var cookieLife = new Date((timeAfterBirthday.valueOf() * oneDay) + presentDate.valueOf());
+
+    checkforCookie = document.querySelector('input[name=review-mark]:checked');
+
+    if (birthday.valueOf() > presentDate.valueOf()) {
+      cookieLife = new Date(cookieLife.valueOf() + oneYear);
+    }
+
+    browserCookies.set('formName', formName.value, {
+      expires: cookieLife
+    });
+    browserCookies.set('checkforCookie', checkforCookie.value, {
+      expires: cookieLife
+    });
+    formSubmit.submit();
   };
 })();
