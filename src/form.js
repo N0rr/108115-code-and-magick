@@ -115,7 +115,7 @@
     checkforCookie = document.querySelector('input[name=review-mark]:checked');
 
     if (birthday.valueOf() > presentDate.valueOf()) {
-      cookieLife = cookieLife + oneYear;
+      cookieLife = new Date(cookieLife.valueOf() + oneYear);
     }
 
     browserCookies.set('formName', formName.value, {
