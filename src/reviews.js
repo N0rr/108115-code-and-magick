@@ -5,6 +5,7 @@
   var reviewContainer = document.querySelector('.reviews-list');
   var templateReview = document.querySelector('#review-template');
   var reviewsDataURL = 'http://o0.github.io/assets/json/reviews.json';
+  var reviewsMoreButton = document.querySelector('.reviews-controls-more');
   var imgTimeOut = 2000;
   var reviewClone;
 
@@ -16,6 +17,14 @@
   }
 
   var reviews = [];
+  var pageSize = 3;
+  var pageNumber = 0;
+  var filtredReviews = [];
+  
+  var isNextPageAvailable = function(_reviews, _page, pagesize) {
+    return _page < Math.floor(_reviews.length / pagesize);
+  };
+
   var getReview = function(data, container) {
     reviewFilter.classList.remove('invisible');
     var clone = reviewClone.cloneNode(true);
@@ -59,9 +68,15 @@
     xhr.send();
   };
 
-  var renderReviews = function(putReviews) {
-    reviewContainer.innerHTML = '';
-    putReviews.forEach(function(review) {
+  var renderReviews = function(putReviews, page, replace) {
+    if (replace) {
+      reviewContainer.innerHTML = '';
+    }
+
+    var from = page * pageSize;
+    var to = from + pageSize;
+
+    putReviews.slice(from, to).forEach(function(review) {
       getReview(review, reviewContainer);
     });
   };
@@ -96,8 +111,9 @@
   };
 
   var setFilterEnabled = function(filter) {
-    var filtredReviews = getReviewsFilter(reviews, filter);
-    renderReviews(filtredReviews);
+    filtredReviews = getReviewsFilter(reviews, filter);
+    pageNumber = 0;
+    renderReviews(filtredReviews, 0, true);
   };
 
   var setFiltrationEnabled = function() {
@@ -105,13 +121,31 @@
     for (var i = 0; i < filters.length; ++i) {
       filters[i].onclick = function() {
         setFilterEnabled(this.id);
+        if (isNextPageAvailable(reviews, pageNumber, pageSize)) {
+          reviewsMoreButton.classList.remove('invisible');
+        }
       };
     }
+  };  
+
+  var showMoreReviews = function() {
+    reviewsMoreButton.classList.remove('invisible');
+    reviewsMoreButton.addEventListener('click', function() {
+      if (isNextPageAvailable(filtredReviews, pageNumber, pageSize)) {        
+        pageNumber++;
+        renderReviews(filtredReviews, pageNumber);
+        reviewsMoreButton.classList.add('invisible');
+        if (isNextPageAvailable(filtredReviews, pageNumber, pageSize)) {
+          reviewsMoreButton.classList.remove('invisible');
+        } 
+      } 
+    });
   };
 
   getDataReviews(function(loadedReviews) {
     reviews = loadedReviews;
-    renderReviews(reviews);
+    setFilterEnabled();
     setFiltrationEnabled();
+    showMoreReviews();
   });
 })();
