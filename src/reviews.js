@@ -7,12 +7,14 @@
   var reviewsDataURL = 'http://o0.github.io/assets/json/reviews.json';
   var imgTimeOut = 2000;
   var reviewClone;
+
   reviewFilter.classList.add('invisible');
   if ('content' in templateReview) {
     reviewClone = templateReview.content.querySelector('.review');
   } else {
     reviewClone = templateReview.querySelector('.review');
   }
+
   var reviews = [];
   var getReview = function(data, container) {
     reviewFilter.classList.remove('invisible');
@@ -24,8 +26,10 @@
     clone.querySelector('.review-text').textContent = data.description;
     reviewContainer.removeChild(reviewPreloader);
     container.appendChild(clone);
+
     var PhotoAvatar = new Image();
     var avatarLoadTimeout;
+
     PhotoAvatar.onload = function(evt) {
       clearTimeout(avatarLoadTimeout);
       clone.querySelector('.review-author').src = evt.target.src;
