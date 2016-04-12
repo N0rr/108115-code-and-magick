@@ -111,7 +111,7 @@
 
   getDataReviews(function(loadedReviews) {
     reviews = loadedReviews;
-    renderReviews(reviews);
+    setFilterEnabled();
     setFiltrationEnabled();
   });
 })();
