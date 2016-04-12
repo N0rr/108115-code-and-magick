@@ -5,6 +5,7 @@
   var reviewContainer = document.querySelector('.reviews-list');
   var templateReview = document.querySelector('#review-template');
   var reviewsDataURL = 'http://o0.github.io/assets/json/reviews.json';
+  var reviewsBlock = document.querySelector('.reviews');
   var imgTimeOut = 2000;
   var reviewClone;
 
@@ -55,6 +56,10 @@
     xhr.onload = function(evt) {
       var dataReviews = JSON.parse(evt.target.response);
       callback(dataReviews);
+    };
+
+    xhr.onerror = function() {
+      reviewsBlock.classList.add('reviews-load-failure');
     };
 
     xhr.open('GET', reviewsDataURL);
