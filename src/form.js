@@ -15,6 +15,7 @@
   var formTip = document.querySelector('.review-fields');
   var formSubmit = document.querySelector('.overlay');
   var checkforCookie;
+
   var cookieStart = function() {
     formName.value = browserCookies.get('formName') || '';
     checkforCookie = browserCookies.get('checkforCookie') || 3;
@@ -22,6 +23,7 @@
   };
 
   cookieStart();
+
   formButton.disabled = true;
   formName.required = true;
   function checked(checkbox, formtext, button, formname, tip, tiptext) {
@@ -104,7 +106,6 @@
 
   formSubmit.onsubmit = function(evt) {
     evt.preventDefault();
-
     var presentDate = new Date();
     var birthday = new Date(presentDate.getFullYear(), 1, 3);
     var oneYear = 365 * 24 * 60 * 60 * 1000;
