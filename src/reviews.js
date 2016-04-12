@@ -10,6 +10,7 @@
   var reviewClone;
 
   reviewFilter.classList.add('invisible');
+
   if ('content' in templateReview) {
     reviewClone = templateReview.content.querySelector('.review');
   } else {
@@ -53,6 +54,7 @@
     PhotoAvatar.src = data.author.picture;
     avatarLoadTimeout = setTimeout(function() {
       PhotoAvatar.src = '';
+      clone.classList.add('review-load-failure');
     }, imgTimeOut);
     return clone;
   };
