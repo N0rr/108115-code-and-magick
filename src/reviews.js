@@ -4,7 +4,7 @@
   var reviewFilter = document.querySelector('.reviews-filter');
   var reviewContainer = document.querySelector('.reviews-list');
   var templateReview = document.querySelector('#review-template');
-  var reviewsDataURL = 'http://o0.github.io/assets/json/reviews.json';
+  var reviewsDataURL = '//o0.github.io/assets/json/reviews.json';
   var reviewsMoreButton = document.querySelector('.reviews-controls-more');
   var imgTimeOut = 2000;
   var reviewClone;
