@@ -4,9 +4,9 @@
   var reviewFilter = document.querySelector('.reviews-filter');
   var reviewContainer = document.querySelector('.reviews-list');
   var templateReview = document.querySelector('#review-template');
-  var reviewsDataURL = 'http://o0.github.io/assets/json/reviews.json';
+  var reviewsDataURL = '//o0.github.io/assets/json/reviews.json';
   var reviewsMoreButton = document.querySelector('.reviews-controls-more');
-  var imgTimeOut = 2000;
+  var imgTimeOut = 10000;
   var reviewClone;
 
   reviewFilter.classList.add('invisible');
@@ -97,10 +97,16 @@
         reviewsToFilter = reviewsToFilter.filter(function(a) {
           return a.rating > 2;
         });
+        reviewsToFilter = reviewsToFilter.sort(function(a, b) {
+          return a.rating - b.rating;
+        });
         break;
       case 'reviews-bad':
         reviewsToFilter = reviewsToFilter.filter(function(a) {
           return a.rating < 3;
+        });
+        reviewsToFilter = reviewsToFilter.sort(function(a, b) {
+          return b.rating - a.rating;
         });
         break;
       case 'reviews-popular':
