@@ -21,12 +21,7 @@
   var getReview = function(data, container) {
     reviewFilter.classList.remove('invisible');
     var clone = reviewClone.cloneNode(true);
-    var reviewPreloader = document.createElement('div');
-    reviewContainer.appendChild(reviewPreloader);
-    reviewPreloader.classList.add('reviews-list-loading');
-    reviewFilter.classList.remove('invisible');
     clone.querySelector('.review-text').textContent = data.description;
-    reviewContainer.removeChild(reviewPreloader);
     container.appendChild(clone);
 
     var PhotoAvatar = new Image();
@@ -53,13 +48,25 @@
 
   var getDataReviews = function(callback) {
     var xhr = new XMLHttpRequest();
+
+    xhr.onloadstart = function() {
+      reviewsBlock.classList.add('reviews-list-loading');
+    };
+
     xhr.onload = function(evt) {
       var dataReviews = JSON.parse(evt.target.response);
       callback(dataReviews);
+      reviewsBlock.classList.remove('reviews-list-loading');
     };
 
     xhr.onerror = function() {
+      reviewsBlock.classList.remove('reviews-list-loading');
       reviewsBlock.classList.add('reviews-load-failure');
+    };
+
+    xhr.timeout = imgTimeOut;
+    xhr.ontimeout = function() {
+      reviewsBlock.classList.remove('reviews-list-loading');
     };
 
     xhr.open('GET', reviewsDataURL);
@@ -78,11 +85,18 @@
     switch (putFilter) {
       case 'reviews-all':
         break;
+
       case 'reviews-recent':
+        reviewsToFilter = reviewsToFilter.filter(function(a) {
+          var reviewsDate = new Date();
+          reviewsDate.setDate(reviewsDate.getDate() - 14);
+          return a.date > reviewsDate;
+        });
         reviewsToFilter.sort(function(a, b) {
           return b.date > a.date;
         });
         break;
+
       case 'reviews-good':
         reviewsToFilter = reviewsToFilter.filter(function(a) {
           return a.rating > 2;
@@ -91,6 +105,7 @@
           return a.rating - b.rating;
         });
         break;
+
       case 'reviews-bad':
         reviewsToFilter = reviewsToFilter.filter(function(a) {
           return a.rating < 3;
@@ -99,6 +114,7 @@
           return b.rating - a.rating;
         });
         break;
+
       case 'reviews-popular':
         reviewsToFilter.sort(function(a, b) {
           return b.review_usefulness - a.review_usefulness;
