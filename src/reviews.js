@@ -6,6 +6,7 @@
   var templateReview = document.querySelector('#review-template');
   var reviewsDataURL = '//o0.github.io/assets/json/reviews.json';
   var reviewsMoreButton = document.querySelector('.reviews-controls-more');
+  var reviewsBlock = document.querySelector('.reviews');
   var imgTimeOut = 10000;
   var reviewClone;
 
@@ -29,12 +30,8 @@
   var getReview = function(data, container) {
     reviewFilter.classList.remove('invisible');
     var clone = reviewClone.cloneNode(true);
-    var reviewPreloader = document.createElement('div');
-    reviewContainer.appendChild(reviewPreloader);
-    reviewPreloader.classList.add('reviews-list-loading');
     reviewFilter.classList.remove('invisible');
     clone.querySelector('.review-text').textContent = data.description;
-    reviewContainer.removeChild(reviewPreloader);
     container.appendChild(clone);
 
     var PhotoAvatar = new Image();
@@ -61,9 +58,25 @@
 
   var getDataReviews = function(callback) {
     var xhr = new XMLHttpRequest();
+    xhr.onloadstart = function() {
+      reviewsBlock.classList.add('reviews-list-loading');
+    };
+
     xhr.onload = function(evt) {
       var dataReviews = JSON.parse(evt.target.response);
       callback(dataReviews);
+      reviewsBlock.classList.remove('reviews-list-loading');
+    };
+
+    xhr.onerror = function() {
+      reviewsBlock.classList.remove('reviews-list-loading');
+      reviewsBlock.classList.add('reviews-load-failure');
+    };
+
+    xhr.timeout = imgTimeOut;
+    xhr.ontimeout = function() {
+      reviewsBlock.classList.remove('reviews-list-loading');
+      reviewsBlock.classList.add('reviews-load-failure');
     };
 
     xhr.open('GET', reviewsDataURL);
@@ -89,6 +102,12 @@
       case 'reviews-all':
         break;
       case 'reviews-recent':
+        reviewsToFilter = reviewsToFilter.filter(function(a) {
+          var lastTwoWeeks = new Date();
+          lastTwoWeeks.setDate(lastTwoWeeks.getDate() - 14);
+          var reviewDate = new Date(a.date);
+          return reviewDate > lastTwoWeeks;
+        });
         reviewsToFilter.sort(function(a, b) {
           return b.date > a.date;
         });
