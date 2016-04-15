@@ -30,7 +30,6 @@
   var getReview = function(data, container) {
     reviewFilter.classList.remove('invisible');
     var clone = reviewClone.cloneNode(true);
-    reviewFilter.classList.remove('invisible');
     clone.querySelector('.review-text').textContent = data.description;
     container.appendChild(clone);
 
