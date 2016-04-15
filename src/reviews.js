@@ -7,7 +7,7 @@
   var reviewsDataURL = '//o0.github.io/assets/json/reviews.json';
   var reviewsMoreButton = document.querySelector('.reviews-controls-more');
   var reviewsBlock = document.querySelector('.reviews');
-  var imgTimeOut = 10000;
+  var imgTimeOut = 2000;
   var reviewClone;
 
   reviewFilter.classList.add('invisible');
@@ -58,6 +58,7 @@
 
   var getDataReviews = function(callback) {
     var xhr = new XMLHttpRequest();
+
     xhr.onloadstart = function() {
       reviewsBlock.classList.add('reviews-list-loading');
     };
@@ -101,6 +102,7 @@
     switch (putFilter) {
       case 'reviews-all':
         break;
+
       case 'reviews-recent':
         reviewsToFilter = reviewsToFilter.filter(function(a) {
           var lastTwoWeeks = new Date();
@@ -112,6 +114,7 @@
           return b.date > a.date;
         });
         break;
+
       case 'reviews-good':
         reviewsToFilter = reviewsToFilter.filter(function(a) {
           return a.rating > 2;
@@ -120,6 +123,7 @@
           return a.rating - b.rating;
         });
         break;
+
       case 'reviews-bad':
         reviewsToFilter = reviewsToFilter.filter(function(a) {
           return a.rating < 3;
@@ -128,6 +132,7 @@
           return b.rating - a.rating;
         });
         break;
+
       case 'reviews-popular':
         reviewsToFilter.sort(function(a, b) {
           return b.review_usefulness - a.review_usefulness;
