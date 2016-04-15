@@ -67,6 +67,7 @@
     xhr.timeout = imgTimeOut;
     xhr.ontimeout = function() {
       reviewsBlock.classList.remove('reviews-list-loading');
+      reviewsBlock.classList.add('reviews-load-failure');
     };
 
     xhr.open('GET', reviewsDataURL);
@@ -88,9 +89,10 @@
 
       case 'reviews-recent':
         reviewsToFilter = reviewsToFilter.filter(function(a) {
-          var reviewsDate = new Date();
-          reviewsDate.setDate(reviewsDate.getDate() - 14);
-          return a.date > reviewsDate;
+          var lastTwoWeeks = new Date();
+          lastTwoWeeks.setDate(lastTwoWeeks.getDate() - 14);
+          var reviewDate = new Date(a.date);
+          return reviewDate > lastTwoWeeks;
         });
         reviewsToFilter.sort(function(a, b) {
           return b.date > a.date;
