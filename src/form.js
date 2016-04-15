@@ -114,7 +114,6 @@
     var cookieLife = new Date((timeAfterBirthday.valueOf() * oneDay) + presentDate.valueOf());
 
     checkforCookie = document.querySelector('input[name=review-mark]:checked');
-
     if (birthday.valueOf() > presentDate.valueOf()) {
       cookieLife = new Date(cookieLife.valueOf() + oneYear);
     }
@@ -126,6 +125,7 @@
     browserCookies.set('checkforCookie', checkforCookie.value, {
       expires: cookieLife
     });
+
     formSubmit.submit();
   };
 })();
