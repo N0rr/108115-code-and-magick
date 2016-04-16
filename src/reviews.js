@@ -24,7 +24,7 @@
   var filtredReviews = [];
 
   var isNextPageAvailable = function(_reviews, _page, pagesize) {
-    return _page < Math.floor(_reviews.length / pagesize);
+    return _page <= Math.floor(_reviews.length / pagesize);
   };
 
   var getReview = function(data, container) {
