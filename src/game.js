@@ -713,8 +713,8 @@
   game.initializeLevelAndStart();
   game.initializeLevelAndStart();
   game.setGameStatus(window.Game.Verdict.INTRO);
-  
-  window.addEventListener('scroll', function() {    
+
+  window.addEventListener('scroll', function() {
     var headerClouds = document.querySelector('.header-clouds');
     var headerContainer = document.querySelector('header');
     var headerPosition = headerContainer.getBoundingClientRect();
@@ -723,20 +723,19 @@
     var headerDifference = headerPosition.height - headerPosition.top;
     var gameContainer = document.querySelector('.demo');
     var gamePosition = gameContainer.getBoundingClientRect();
-    var gameTop = gamePosition.top;
     var gameHeight = gamePosition.height;
     var gameDifference = gamePosition.height - gamePosition.top;
     var scrollTimeout;
     var headerDefaultPosition = 440;
 
-    clearTimeout(scrollTimeout);    
+    clearTimeout(scrollTimeout);
 
     scrollTimeout = setTimeout(function() {
       if (window.innerHeight - headerDifference > 0) {
         headerClouds.style.backgroundPosition = headerDefaultPosition - headerTop + 'px';
       } else if (window.innerHeight - headerDifference < headerHeight && window.innerHeight - gameDifference < gameHeight) {
         headerClouds.style.backgroundPosition = headerDefaultPosition;
-        game.setGameStatus(window.Game.Verdict.PAUSE);          
+        game.setGameStatus(window.Game.Verdict.PAUSE);
       }
     }, 100);
   });

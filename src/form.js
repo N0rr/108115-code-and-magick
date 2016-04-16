@@ -23,6 +23,7 @@
   };
 
   cookieStart();
+
   formButton.disabled = true;
   formName.required = true;
   function checked(checkbox, formtext, button, formname, tip, tiptext) {
@@ -113,7 +114,6 @@
     var cookieLife = new Date((timeAfterBirthday.valueOf() * oneDay) + presentDate.valueOf());
 
     checkforCookie = document.querySelector('input[name=review-mark]:checked');
-
     if (birthday.valueOf() > presentDate.valueOf()) {
       cookieLife = new Date(cookieLife.valueOf() + oneYear);
     }
