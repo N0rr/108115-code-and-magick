@@ -3,3 +3,4 @@
 require('./form');
 require('./game');
 require('./reviews.js');
+require('./gallery');
