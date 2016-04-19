@@ -719,23 +719,22 @@
     var headerContainer = document.querySelector('header');
     var headerPosition = headerContainer.getBoundingClientRect();
     var headerTop = headerPosition.top;
-    var headerHeight = headerPosition.height;
-    var headerDifference = headerPosition.height - headerPosition.top;
     var gameContainer = document.querySelector('.demo');
-    var gamePosition = gameContainer.getBoundingClientRect();
-    var gameHeight = gamePosition.height;
-    var gameDifference = gamePosition.height - gamePosition.top;
 
     var scrollTimeout;
 
     var headerDefaultPosition = 440;
 
+    var visibility = function(block) {
+      return block.getBoundingClientRect().bottom >= 0;
+    };
+
     clearTimeout(scrollTimeout);
 
     scrollTimeout = setTimeout(function() {
-      if (window.innerHeight - headerDifference > 0) {
+      if (visibility(headerClouds)) {
         headerClouds.style.backgroundPosition = headerDefaultPosition - headerTop + 'px';
-      } else if (window.innerHeight - headerDifference < headerHeight && window.innerHeight - gameDifference < gameHeight) {
+      } else if (!visibility(headerClouds) && !visibility(gameContainer)) {
         headerClouds.style.backgroundPosition = headerDefaultPosition;
         game.setGameStatus(window.Game.Verdict.PAUSE);
       }
