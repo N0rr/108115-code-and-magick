@@ -739,6 +739,6 @@
         headerClouds.style.backgroundPosition = headerDefaultPosition;
         game.setGameStatus(window.Game.Verdict.PAUSE);
       }
-    }, 40);
+    }, 0);
   });
 })();
