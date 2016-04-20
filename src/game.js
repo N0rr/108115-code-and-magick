@@ -715,6 +715,8 @@
 
   document.querySelector('.header-clouds').style.backgroundPosition = 0;
 
+  var trigger = true;
+
   window.addEventListener('scroll', function() {
     var headerClouds = document.querySelector('.header-clouds');
     var headerContainer = document.querySelector('header');
@@ -722,17 +724,13 @@
     var headerTop = headerPosition.top;
     var gameContainer = document.querySelector('.demo');
 
-    var scrollTimeout;
-
     var visibility = function(block) {
       return block.getBoundingClientRect().bottom >= 0;
     };
 
-    clearTimeout(scrollTimeout);
-    var trigger = true;
-
     if (trigger) {
-      scrollTimeout = setTimeout(function() {
+      setTimeout(function() {
+        trigger = true;
       }, 100);
 
       trigger = false;
