@@ -26,6 +26,7 @@
 
   formButton.disabled = true;
   formName.required = true;
+
   function checked(checkbox, formtext, button, formname, tip, tiptext) {
     var check;
 
