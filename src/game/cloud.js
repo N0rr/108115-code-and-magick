@@ -2,24 +2,27 @@
 
 var utilities = require('../utilities');
 
-document.querySelector('.header-clouds').style.backgroundPositionX = 0;
+document.querySelector('.header-clouds').style.backgroundPosition = 0;
+
+var trigger = true;
 
 window.addEventListener('scroll', function() {
   var headerClouds = document.querySelector('.header-clouds');
   var headerContainer = document.querySelector('header');
   var headerPosition = headerContainer.getBoundingClientRect();
   var headerTop = headerPosition.top;
-  var scrollTimeout;
-
   var HeaderVisibility = utilities.iSeeYou(headerClouds);
 
-  clearTimeout(scrollTimeout);
+  if (trigger) {
+    setTimeout(function() {
+      trigger = true;
+    }, 100);
 
-  scrollTimeout = setTimeout(function() {
+    trigger = false;
     if (HeaderVisibility) {
       headerClouds.style.backgroundPosition = headerTop + 'px';
     } else {
       headerClouds.style.backgroundPosition = 0;
     }
-  }, 100);
+  }
 });

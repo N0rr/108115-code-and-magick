@@ -1,8 +1,9 @@
 'use strict';
 
-/*ajax*/
-
 module.exports = {
+
+  /*ajax*/
+
   getDataAjax: function getData(callback, url) {
     var xhr = new XMLHttpRequest();
 
