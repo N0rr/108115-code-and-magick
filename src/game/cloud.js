@@ -2,13 +2,14 @@
 
 var utilities = require('../utilities');
 
+document.querySelector('.header-clouds').style.backgroundPositionX = 0;
+
 window.addEventListener('scroll', function() {
   var headerClouds = document.querySelector('.header-clouds');
   var headerContainer = document.querySelector('header');
   var headerPosition = headerContainer.getBoundingClientRect();
   var headerTop = headerPosition.top;
   var scrollTimeout;
-  var headerDefaultPosition = 440;
 
   var HeaderVisibility = utilities.iSeeYou(headerClouds);
 
@@ -16,9 +17,9 @@ window.addEventListener('scroll', function() {
 
   scrollTimeout = setTimeout(function() {
     if (HeaderVisibility) {
-      headerClouds.style.backgroundPosition = headerDefaultPosition - headerTop + 'px';
-    } else if (!HeaderVisibility) {
-      headerClouds.style.backgroundPosition = headerDefaultPosition;
+      headerClouds.style.backgroundPosition = headerTop + 'px';
+    } else {
+      headerClouds.style.backgroundPosition = 0;
     }
-  }, 40);
+  }, 100);
 });

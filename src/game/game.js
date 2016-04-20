@@ -711,7 +711,6 @@
 
   var game = new Game(document.querySelector('.demo'));
   game.initializeLevelAndStart();
-  game.initializeLevelAndStart();
   game.setGameStatus(window.Game.Verdict.INTRO);
 
   require('./cloud');
