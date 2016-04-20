@@ -729,14 +729,19 @@
     };
 
     clearTimeout(scrollTimeout);
+    var trigger = true;
 
-    scrollTimeout = setTimeout(function() {
+    if (trigger) {
+      scrollTimeout = setTimeout(function() {
+      }, 100);
+
+      trigger = false;
       if (visibility(headerClouds)) {
         headerClouds.style.backgroundPosition = headerTop + 'px';
       } else if (!visibility(gameContainer)) {
         headerClouds.style.backgroundPosition = 0;
         game.setGameStatus(window.Game.Verdict.PAUSE);
       }
-    }, 100);
+    }
   });
 })();
