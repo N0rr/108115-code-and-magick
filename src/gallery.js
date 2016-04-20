@@ -14,6 +14,8 @@
   var showCurrentImage;
   var showCurrentNumber;
   var currentId;
+  var numberNull;
+
   var galleryLoop = function(_photos, _overlayGallery) {
     for (var i = 0; i < _photos.length; i++) {
       _overlayGallery[i] = _photos[i].getAttribute('src');
@@ -37,7 +39,7 @@
     currentPictureContainer.appendChild(getPicture);
     getPicture.src = overlayGallery[imgNumber];
     photoNumberCurrent.textContent = _numberOfPhoto + 1;
-    galleryContainer.classList.remove('invisible');
+    galleryContainer.classList.remove('invisible');    
   };
 
   var closeGallery = function() {
@@ -71,34 +73,34 @@
       getGallery(numberOfPhoto, numberOfPhoto);
     }
   });
+  
+  var getCurrentImage = function() {
+    showCurrentImage = document.querySelector('.overlay-image-active');
+    return showCurrentNumber = showCurrentImage.id.slice(-1);
+  };
+  
+  var showAnotherImage = function(_getNumber) {
+    getGallery(_getNumber, _getNumber);    
+    galleryLoop(photos, overlayGallery);
+    currentId = document.getElementById('img-' + _getNumber);
+    currentId.classList.add('overlay-image-active');
+  };
 
   btnShowPrevImage.addEventListener('click', function(evt) {
-    evt.preventDefault();
-    var prevNumber = 0;
-
-    showCurrentImage = document.querySelector('.overlay-image-active');
-    showCurrentNumber = showCurrentImage.id.slice(-1);
-    prevNumber = showCurrentNumber - 1;
+    evt.preventDefault(); 
+    getCurrentImage();
+    numberNull = showCurrentNumber - 1;
     if (showCurrentNumber > 0) {
-      getGallery(prevNumber, prevNumber);
-      galleryLoop(photos, overlayGallery);
-      currentId = document.getElementById('img-' + prevNumber);
-      currentId.classList.add('overlay-image-active');
+      showAnotherImage(numberNull);
     }
   });
 
   btnShowNextImage.addEventListener('click', function(evt) {
     evt.preventDefault();
-    var nextNumber = 0;
-
-    showCurrentImage = document.querySelector('.overlay-image-active');
-    showCurrentNumber = showCurrentImage.id.slice(-1);
-    nextNumber = parseFloat(showCurrentNumber) + 1;
+    getCurrentImage();
+    numberNull = parseFloat(showCurrentNumber) + 1;
     if (overlayGallery.length - 1 > showCurrentNumber) {
-      getGallery(nextNumber, nextNumber);
-      galleryLoop(photos, overlayGallery);
-      currentId = document.getElementById('img-' + nextNumber);
-      currentId.classList.add('overlay-image-active');
+      showAnotherImage(numberNull);
     }
   });
 })();
