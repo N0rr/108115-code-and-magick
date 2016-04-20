@@ -711,8 +711,9 @@
 
   var game = new Game(document.querySelector('.demo'));
   game.initializeLevelAndStart();
-  game.initializeLevelAndStart();
   game.setGameStatus(window.Game.Verdict.INTRO);
+
+  document.querySelector('.header-clouds').style.backgroundPositionX = 0;
 
   window.addEventListener('scroll', function() {
     var headerClouds = document.querySelector('.header-clouds');
@@ -723,8 +724,6 @@
 
     var scrollTimeout;
 
-    var headerDefaultPosition = 440;
-
     var visibility = function(block) {
       return block.getBoundingClientRect().bottom >= 0;
     };
@@ -733,11 +732,11 @@
 
     scrollTimeout = setTimeout(function() {
       if (visibility(headerClouds)) {
-        headerClouds.style.backgroundPosition = headerDefaultPosition - headerTop + 'px';
-      } else if (!visibility(headerClouds) && !visibility(gameContainer)) {
-        headerClouds.style.backgroundPosition = headerDefaultPosition;
+        headerClouds.style.backgroundPosition = headerTop + 'px';
+      } else if (!visibility(gameContainer)) {
+        headerClouds.style.backgroundPosition = 0;
         game.setGameStatus(window.Game.Verdict.PAUSE);
       }
-    }, 0);
+    }, 100);
   });
 })();
