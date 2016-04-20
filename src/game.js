@@ -713,7 +713,7 @@
   game.initializeLevelAndStart();
   game.setGameStatus(window.Game.Verdict.INTRO);
 
-  document.querySelector('.header-clouds').style.backgroundPositionX = 0;
+  document.querySelector('.header-clouds').style.backgroundPosition = 0;
 
   window.addEventListener('scroll', function() {
     var headerClouds = document.querySelector('.header-clouds');
