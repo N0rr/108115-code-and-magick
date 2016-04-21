@@ -39,7 +39,7 @@
     currentPictureContainer.appendChild(getPicture);
     getPicture.src = overlayGallery[imgNumber];
     photoNumberCurrent.textContent = _numberOfPhoto + 1;
-    galleryContainer.classList.remove('invisible');    
+    galleryContainer.classList.remove('invisible');
   };
 
   var closeGallery = function() {
@@ -73,21 +73,21 @@
       getGallery(numberOfPhoto, numberOfPhoto);
     }
   });
-  
+
   var getCurrentImage = function() {
     showCurrentImage = document.querySelector('.overlay-image-active');
-    return showCurrentNumber = showCurrentImage.id.slice(-1);
+    showCurrentNumber = showCurrentImage.id.slice(-1);
   };
-  
+
   var showAnotherImage = function(_getNumber) {
-    getGallery(_getNumber, _getNumber);    
+    getGallery(_getNumber, _getNumber);
     galleryLoop(photos, overlayGallery);
     currentId = document.getElementById('img-' + _getNumber);
     currentId.classList.add('overlay-image-active');
   };
 
   btnShowPrevImage.addEventListener('click', function(evt) {
-    evt.preventDefault(); 
+    evt.preventDefault();
     getCurrentImage();
     numberNull = showCurrentNumber - 1;
     if (showCurrentNumber > 0) {
