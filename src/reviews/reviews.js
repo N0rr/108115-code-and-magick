@@ -34,15 +34,6 @@
     reviewClone = templateReview.querySelector('.review');
   }
 
-  var reviews = [];
-  var PAGE_SIZE = 3;
-  var PAGE_NUMBER = 0;
-  var filtredReviews = [];
-
-  var isNextPageAvailable = function(_reviews, _page, pagesize) {
-    return _page <= Math.floor(_reviews.length / pagesize);
-  };
-
   var getReview = function(data, container) {
     reviewFilter.classList.remove('invisible');
 
@@ -137,14 +128,6 @@
     filtredReviews = getReviewsFilter(reviews, filter);
     PAGE_NUMBER = 0;
     renderReviews(filtredReviews, 0, true);
-  };
-
-  var setFiltrationEnabled = function() {
-    reviewFilter.addEventListener('click', function(evt) {
-      if (evt.target.checked) {
-        setFilterEnabled(evt.target.id);
-      }
-    });
   };
 
   var showMoreReviews = function() {
