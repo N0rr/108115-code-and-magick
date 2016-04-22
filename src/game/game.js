@@ -713,8 +713,10 @@
   game.initializeLevelAndStart();
   game.setGameStatus(window.Game.Verdict.INTRO);
 
-  require('./cloud');
+  var cloud = require('./cloud');
   var utilities = require('../utilities');
+
+  cloud.moveClouds();
 
   var gameContainer = document.querySelector('.demo');
 
