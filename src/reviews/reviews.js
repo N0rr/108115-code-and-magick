@@ -2,15 +2,15 @@
 
 (function() {
   var utilities = require('../utilities');
-  
-  var reviewContainer = document.querySelector('.reviews-list');  
+
+  var reviewContainer = document.querySelector('.reviews-list');
   var reviewsDataURL = '//o0.github.io/assets/json/reviews.json';
   var reviewsMoreButton = document.querySelector('.reviews-controls-more');
   var reviewsBlock = document.querySelector('.reviews');
   var reviewFilter = document.querySelector('.reviews-filter');
 
   /*review*/
-  reviewFilter.classList.add('invisible');  
+  reviewFilter.classList.add('invisible');
 
   var reviews = [];
   var filtredReviews = [];
@@ -27,13 +27,13 @@
   var isNextPageAvailable = function(_reviews, _page, pagesize) {
     return _page < Math.floor(_reviews.length / pagesize);
   };
-  
+
   var renderReviews = function(putReviews, page, replace) {
     if (replace) {
       renderedReviews.forEach(function(review) {
         review.remove();
       });
-  
+
       renderedReviews = [];
     }
 
@@ -42,7 +42,7 @@
 
     putReviews.slice(from, to).forEach(function(review) {
       renderedReviews.push(new Review(review, reviewContainer));
-    });    
+    });
 
     reviewFilter.classList.remove('invisible');
     if (to < putReviews.length) {
