@@ -713,33 +713,16 @@
   game.initializeLevelAndStart();
   game.setGameStatus(window.Game.Verdict.INTRO);
 
-  document.querySelector('.header-clouds').style.backgroundPosition = 0;
+  var cloud = require('./cloud');
+  var utilities = require('../utilities');
 
-  var trigger = true;
+  cloud.moveClouds();
+
+  var gameContainer = document.querySelector('.demo');
 
   window.addEventListener('scroll', function() {
-    var headerClouds = document.querySelector('.header-clouds');
-    var headerContainer = document.querySelector('header');
-    var headerPosition = headerContainer.getBoundingClientRect();
-    var headerTop = headerPosition.top;
-    var gameContainer = document.querySelector('.demo');
-
-    var visibility = function(block) {
-      return block.getBoundingClientRect().bottom >= 0;
-    };
-
-    if (trigger) {
-      setTimeout(function() {
-        trigger = true;
-      }, 100);
-
-      trigger = false;
-      if (visibility(headerClouds)) {
-        headerClouds.style.backgroundPosition = headerTop + 'px';
-      } else if (!visibility(gameContainer)) {
-        headerClouds.style.backgroundPosition = 0;
-        game.setGameStatus(window.Game.Verdict.PAUSE);
-      }
+    if (!utilities.iSeeYou(gameContainer)) {
+      game.setGameStatus(window.Game.Verdict.PAUSE);
     }
   });
 })();
