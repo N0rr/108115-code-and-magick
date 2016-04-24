@@ -48,8 +48,8 @@
         clone.classList.add('review-load-failure');
       } else {
         photoAvatar.src = data.author.picture;
-        photoAvatar.src.width = 124;
-        photoAvatar.src.height = 124;
+        photoAvatar.width = 124;
+        photoAvatar.height = 124;
       }
     });
 
