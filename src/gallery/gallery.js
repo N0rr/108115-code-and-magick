@@ -44,13 +44,13 @@
 
   var KeyClose = function(evt) {
     evt.preventDefault();
-    if (evt.keyCode === 27) {      
+    if (evt.keyCode === 27) {
       closeGallery();
     }
   };
 
   var clickClose = function(evt) {
-    evt.preventDefault();    
+    evt.preventDefault();
     closeGallery();
   };
 
