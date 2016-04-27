@@ -58,6 +58,9 @@
     numberNull = showCurrentNumber - 1;
     if (showCurrentNumber > 0) {
       showAnotherImage(numberNull);
+    } else {
+      numberNull = numberNull + overlayGallery.length;
+      showAnotherImage(numberNull);
     }
   };
 
@@ -66,6 +69,9 @@
     getCurrentImage();
     numberNull = parseFloat(showCurrentNumber) + 1;
     if (overlayGallery.length - 1 > showCurrentNumber) {
+      showAnotherImage(numberNull);
+    } else {
+      numberNull = numberNull - overlayGallery.length;
       showAnotherImage(numberNull);
     }
   };
