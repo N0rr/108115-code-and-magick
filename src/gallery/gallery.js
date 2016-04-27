@@ -18,10 +18,9 @@
   var numberNull;
 
   var galleryLoop = function() {
-    for (var i = 0; i < overlayGallery.length; i++) {
-      if (image[i].classList.contains('overlay-image-active')) {
-        image[i].classList.remove('overlay-image-active');
-      }
+    var checkActive = document.querySelector('.photogallery img.overlay-image-active');
+    if (checkActive) {
+      checkActive.classList.remove('overlay-image-active');
     }
   };
 
