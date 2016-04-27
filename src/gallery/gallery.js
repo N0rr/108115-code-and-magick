@@ -105,13 +105,7 @@
       numberOfPhoto = parseFloat(numberOfPhoto);
       if (evt.target.tagName === 'IMG') {
         evt.target.classList.add('overlay-image-active');
-        if (evt.target.id.length === 5) {
-          numberOfPhoto = +evt.target.id.split('-')[1];
-        } else if (evt.target.id.length === 6) {
-          numberOfPhoto = +evt.target.id.split('-')[2];
-        } else if (evt.target.id.length === 7) {
-          numberOfPhoto = +evt.target.id.split('-')[3];
-        }
+        numberOfPhoto = +evt.target.id.split('-')[1];
         makeGallery(numberOfPhoto);
         window.addEventListener('keydown', KeyClose);
         btnCloseGallery.addEventListener('click', clickClose);
