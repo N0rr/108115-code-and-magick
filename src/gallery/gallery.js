@@ -5,7 +5,6 @@
   var currentPictureContainer = document.querySelector('.overlay-gallery-preview');
   var btnCloseGallery = document.querySelector('.overlay-gallery-close');
   var photoGallery = document.querySelector('.photogallery');
-  var image = document.querySelectorAll('.photogallery img');
   var TotalPhotos = document.querySelector('.preview-number-total');
   var photoNumberCurrent = document.querySelector('.preview-number-current');
   var btnShowPrevImage = document.querySelector('.overlay-gallery-control-left');
