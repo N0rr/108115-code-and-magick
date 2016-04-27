@@ -48,8 +48,8 @@
         clone.classList.add('review-load-failure');
       } else {
         photoAvatar.src = data.author.picture;
-        photoAvatar.src.width = 124;
-        photoAvatar.src.height = 124;
+        photoAvatar.width = 124;
+        photoAvatar.height = 124;
       }
     });
 
@@ -134,7 +134,6 @@
     if (isNextPageAvailable(filtredReviews, PAGE_NUMBER, PAGE_SIZE)) {
       reviewsMoreButton.classList.remove('invisible');
     }
-
     reviewsMoreButton.addEventListener('click', function() {
       if (isNextPageAvailable(filtredReviews, PAGE_NUMBER, PAGE_SIZE)) {
         PAGE_NUMBER++;
