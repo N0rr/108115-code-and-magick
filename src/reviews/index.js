@@ -66,6 +66,7 @@
           var reviewDate = new Date(a.date);
           return reviewDate > lastTwoWeeks;
         });
+
         reviewsToFilter.sort(function(a, b) {
           return b.date > a.date;
         });

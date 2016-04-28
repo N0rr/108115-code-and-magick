@@ -7,10 +7,6 @@ module.exports = {
   getDataAjax: function getData(callback, url) {
     var xhr = new XMLHttpRequest();
 
-    xhr.onloadstart = function() {
-      callback(false);
-    };
-
     xhr.onload = function(evt) {
       var dataReviews = JSON.parse(evt.target.response);
       callback(false, dataReviews);
