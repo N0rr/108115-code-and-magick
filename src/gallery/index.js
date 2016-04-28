@@ -1,9 +1,8 @@
 'use strict';
 
 (function() {
-  var gallery = require('./gallery');
   var photoGallery = document.querySelector('.photogallery');
+  var gallery = require('./gallery');
 
-  gallery.getGallery();
   photoGallery.addEventListener('click', gallery.showGallery);
 })();
