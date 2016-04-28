@@ -2,7 +2,7 @@
 
 (function() {
   var photoGallery = document.querySelector('.photogallery');
-  var Gallery = require('./gallery');
+  var gallery = require('./gallery');
 
-  photoGallery.addEventListener('click', Gallery.showGallery);
+  photoGallery.addEventListener('click', gallery.showGallery);
 })();
