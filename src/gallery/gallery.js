@@ -26,7 +26,7 @@
       return img.getAttribute('src');
     });
 
-    self.getGallery = function(imgNumber, _numberOfPhoto) {
+    self.getGallery = function(_numberOfPhoto) {
       var checkImage = document.querySelector('.overlay-gallery-preview > img');
       if (checkImage) {
         currentPictureContainer.removeChild(checkImage);
@@ -35,7 +35,7 @@
       self.getPicture = new Image();
 
       currentPictureContainer.appendChild(self.getPicture);
-      self.getPicture.src = self.overlayGallery[imgNumber];
+      self.getPicture.src = self.overlayGallery[_numberOfPhoto];
       photoNumberCurrent.textContent = _numberOfPhoto + 1;
       TotalPhotos.textContent = self.overlayGallery.length;
       galleryContainer.classList.remove('invisible');
@@ -62,7 +62,7 @@
         if (evt.target.id.length === 5) {
           self.numberOfPhoto = +evt.target.id.split('-')[1];
         }
-        self.getGallery(self.numberOfPhoto, self.numberOfPhoto);
+        self.getGallery(self.numberOfPhoto);
 
         window.addEventListener('keydown', self.keyCloseGallery);
         btnCloseGallery.addEventListener('click', self.closeGallery);
@@ -77,7 +77,7 @@
     };
 
     this.showAnotherImage = function(_getNumber) {
-      self.getGallery(_getNumber, _getNumber);
+      self.getGallery(_getNumber);
       self.galleryLoop();
       self.currentId = document.getElementById('img-' + _getNumber);
       self.currentId.classList.add('overlay-image-active');
