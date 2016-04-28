@@ -100,6 +100,14 @@
       }
     };
 
+    this.getHashImage = function(evt) {
+      if (evt.target.tagName === 'IMG') {
+        var targetImg = evt.target.src;
+        location.hash = location.hash.indexOf(targetImg);
+        
+      }      
+    };    
+
     this.remove = function() {
       btnShowPrevImage.removeEventListener('click', self.clickBtnShowPrevImage);
       btnShowNextImage.removeEventListener('click', self.clickBtnShowNextImage);
