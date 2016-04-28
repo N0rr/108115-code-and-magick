@@ -3,18 +3,20 @@
 (function() {
   var utilities = require('../utilities');
 
-  var reviewFilter = document.querySelector('.reviews-filter');
   var reviewContainer = document.querySelector('.reviews-list');
-  var templateReview = document.querySelector('#review-template');
   var reviewsDataURL = '//o0.github.io/assets/json/reviews.json';
   var reviewsMoreButton = document.querySelector('.reviews-controls-more');
   var reviewsBlock = document.querySelector('.reviews');
+  var reviewFilter = document.querySelector('.reviews-filter');
 
-  var reviewClone;
+  /*review*/
+  reviewFilter.classList.add('invisible');
 
   var reviews = [];
   var filtredReviews = [];
+  var renderedReviews = [];
 
+  var Review = require('./review');
   /*
    * @constant {number}
    */
@@ -26,50 +28,23 @@
     return _page < Math.floor(_reviews.length / pagesize);
   };
 
-  reviewFilter.classList.add('invisible');
-
-  if ('content' in templateReview) {
-    reviewClone = templateReview.content.querySelector('.review');
-  } else {
-    reviewClone = templateReview.querySelector('.review');
-  }
-
-  var getReview = function(data, container) {
-    reviewFilter.classList.remove('invisible');
-
-    var clone = reviewClone.cloneNode(true);
-    var photoAvatar = clone.querySelector('.review-author');
-    var reviewText = clone.querySelector('.review-text');
-
-    reviewText.textContent = data.description;
-
-    utilities.createNewImage(data.author.picture, function(error) {
-      if (error) {
-        clone.classList.add('review-load-failure');
-      } else {
-        photoAvatar.src = data.author.picture;
-        photoAvatar.width = 124;
-        photoAvatar.height = 124;
-      }
-    });
-
-    container.appendChild(clone);
-
-    return clone;
-  };
-
   var renderReviews = function(putReviews, page, replace) {
     if (replace) {
-      reviewContainer.innerHTML = '';
+      renderedReviews.forEach(function(review) {
+        review.remove();
+      });
+
+      renderedReviews = [];
     }
 
     var from = page * PAGE_SIZE;
     var to = from + PAGE_SIZE;
 
     putReviews.slice(from, to).forEach(function(review) {
-      getReview(review, reviewContainer);
+      renderedReviews.push(new Review(review, reviewContainer));
     });
 
+    reviewFilter.classList.remove('invisible');
     if (to < putReviews.length) {
       reviewsMoreButton.classList.remove('invisible');
     } else {
