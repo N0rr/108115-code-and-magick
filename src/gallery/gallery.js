@@ -8,7 +8,7 @@
   var photoNumberCurrent = document.querySelector('.preview-number-current');
   var btnShowPrevImage = document.querySelector('.overlay-gallery-control-left');
   var btnShowNextImage = document.querySelector('.overlay-gallery-control-right');
-  var TotalPhotos = document.querySelector('.preview-number-total');
+  var totalPhotos = document.querySelector('.preview-number-total');
 
   var Gallery = function() {
     var self = this;
@@ -37,7 +37,7 @@
       currentPictureContainer.appendChild(self.getPicture);
       self.getPicture.src = self.overlayGallery[_numberOfPhoto];
       photoNumberCurrent.textContent = _numberOfPhoto + 1;
-      TotalPhotos.textContent = self.overlayGallery.length;
+      totalPhotos.textContent = self.overlayGallery.length;
       galleryContainer.classList.remove('invisible');
     };
 
