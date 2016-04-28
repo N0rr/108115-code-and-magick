@@ -712,4 +712,17 @@
   var game = new Game(document.querySelector('.demo'));
   game.initializeLevelAndStart();
   game.setGameStatus(window.Game.Verdict.INTRO);
+
+  var cloud = require('./cloud');
+  var utilities = require('../utilities');
+
+  cloud.moveClouds();
+
+  var gameContainer = document.querySelector('.demo');
+
+  window.addEventListener('scroll', function() {
+    if (!utilities.iSeeYou(gameContainer)) {
+      game.setGameStatus(window.Game.Verdict.PAUSE);
+    }
+  });
 })();
