@@ -4,6 +4,7 @@
   var utilities = require('../utilities');
 
   var templateReview = document.querySelector('#review-template');
+  var reviewQuizAnswer = 'review-quiz-answer';
   var reviewClone;
 
   if ('content' in templateReview) {
@@ -13,7 +14,6 @@
   }
 
   var Review = function(data, container) {
-    var reviewQuizAnswer = 'review-quiz-answer';
     this.data = data;
 
     this.getReview = function() {
@@ -39,13 +39,6 @@
       return clone;
     };
 
-    this.onClickReviewQuiz = function(evt) {
-      if (evt.target.classList.contains(reviewQuizAnswer)) {
-        evt.preventDefault();
-        evt.target.classList.add('review-quiz-answer-active');
-      }
-    };
-
     this.element = this.getReview(this.data, container);
 
     this.remove = function() {
@@ -56,5 +49,13 @@
     this.element.addEventListener('click', this.onClickReviewQuiz);
 
   };
+
+  Review.prototype.onClickReviewQuiz = function(evt) {
+    if (evt.target.classList.contains(reviewQuizAnswer)) {
+      evt.preventDefault();
+      evt.target.classList.add('review-quiz-answer-active');
+    }
+  };
+
   module.exports = Review;
 })();
