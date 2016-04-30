@@ -99,7 +99,7 @@
   };
 
   Gallery.prototype.setHashImage = function(evt) {
-    evt.preventDefault();    
+    evt.preventDefault();
     if (evt.target.tagName === 'IMG') {
       this.targetSrc = evt.target.getAttribute('src');
       this.saveHashImage(this.targetSrc);
