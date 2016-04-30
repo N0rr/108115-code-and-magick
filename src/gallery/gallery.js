@@ -21,6 +21,7 @@
     this.clickBtnShowPrevImage = this.clickBtnShowPrevImage.bind(this);
     this.setHashImage = this.setHashImage.bind(this);
 
+    this.createGallery();
     window.addEventListener('hashchange', this.getHachImage.bind(this));
     window.addEventListener('load', this.getHachImage.bind(this));
   };
@@ -98,8 +99,7 @@
   };
 
   Gallery.prototype.setHashImage = function(evt) {
-    evt.preventDefault();
-    this.createGallery();
+    evt.preventDefault();    
     if (evt.target.tagName === 'IMG') {
       this.targetSrc = evt.target.getAttribute('src');
       this.saveHashImage(this.targetSrc);
