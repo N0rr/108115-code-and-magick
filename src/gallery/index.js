@@ -4,5 +4,5 @@
   var photoGallery = document.querySelector('.photogallery');
   var gallery = require('./gallery');
 
-  photoGallery.addEventListener('click', gallery.showGallery);
+  photoGallery.addEventListener('click', gallery.setHashImage);
 })();
