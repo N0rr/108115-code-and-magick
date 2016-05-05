@@ -136,6 +136,7 @@
       if (filterStorage) {
         reviewFilter.elements['reviews'].value = filterStorage;
         setFilterEnabled(filterStorage);
+        showMoreReviews();
       } else {
         showMoreReviews();
       }
