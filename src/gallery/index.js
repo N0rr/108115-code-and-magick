@@ -1,8 +1,6 @@
 'use strict';
 
-(function() {
-  var photoGallery = document.querySelector('.photogallery');
-  var gallery = require('./gallery');
+var photoGallery = document.querySelector('.photogallery');
+var gallery = require('./gallery');
 
-  photoGallery.addEventListener('click', gallery.setHashImage);
-})();
+photoGallery.addEventListener('click', gallery.setHashImage);
