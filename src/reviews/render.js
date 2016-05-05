@@ -25,12 +25,16 @@ var PAGE_SIZE = 3;
 var PAGE_NUMBER = 0;
 
 var ReviewLoad = function() {
+  reviewsBlock.classList.add('reviews-list-loading');
+  this.reviewCallback = this.reviewCallback.bind(this);
+  this.reviewFilterChange = this.reviewFilterChange.bind(this);
+  this.showMoreReviewsButton = this.showMoreReviewsButton.bind(this);
 
+  utilities.getDataAjax(this.reviewCallback, reviewsDataURL);
 };
 
 ReviewLoad.prototype.reviewShow = function() {
-  reviewsBlock.classList.add('reviews-list-loading');
-  utilities.getDataAjax(reviewCallback, reviewsDataURL);
+
 };
 
 ReviewLoad.prototype.isNextPageAvailable = function(_reviews, _page, pagesize) {
@@ -115,19 +119,27 @@ ReviewLoad.prototype.setFilterEnabled = function(filter) {
   localStorage.setItem('filter', filter);
 };
 
+ReviewLoad.prototype.showMoreReviewsButton = function() {
+  if (this.isNextPageAvailable(filtredReviews, PAGE_NUMBER, PAGE_SIZE)) {
+    PAGE_NUMBER++;
+    this.renderReviews(filtredReviews, PAGE_NUMBER);
+  }
+};
+
 ReviewLoad.prototype.showMoreReviews = function() {
   if (this.isNextPageAvailable(filtredReviews, PAGE_NUMBER, PAGE_SIZE)) {
     reviewsMoreButton.classList.remove('invisible');
   }
-  reviewsMoreButton.addEventListener('click', function() {
-    if (this.isNextPageAvailable(filtredReviews, PAGE_NUMBER, PAGE_SIZE)) {
-      PAGE_NUMBER++;
-      this.renderReviews(filtredReviews, PAGE_NUMBER);
-    }
-  });
+  reviewsMoreButton.addEventListener('click', this.showMoreReviewsButton);
 };
 
-var reviewCallback = function(error, loadedData) {
+ReviewLoad.prototype.reviewFilterChange = function(evt) {
+  if (evt.target.checked) {
+    this.setFilterEnabled(evt.target.id);
+  }
+};
+
+ReviewLoad.prototype.reviewCallback = function(error, loadedData) {
   var filterStorage = localStorage.getItem('filter');
   reviewsBlock.classList.remove('reviews-list-loading');
   if (error) {
@@ -136,11 +148,7 @@ var reviewCallback = function(error, loadedData) {
     this.reviews = loadedData;
     filtredReviews = this.reviews;
     this.setFilterEnabled();
-    reviewFilter.addEventListener('click', function(evt) {
-      if (evt.target.checked) {
-        this.setFilterEnabled(evt.target.id);
-      }
-    });
+    reviewFilter.addEventListener('click', this.reviewFilterChange);
     if (filterStorage) {
       reviewFilter.elements['reviews'].value = filterStorage;
       this.setFilterEnabled(filterStorage);
