@@ -25,7 +25,6 @@ var PAGE_SIZE = 3;
 var PAGE_NUMBER = 0;
 
 var ReviewLoad = function() {
-  reviewsBlock.classList.add('reviews-list-loading');
   this.reviewCallback = this.reviewCallback.bind(this);
   this.reviewFilterChange = this.reviewFilterChange.bind(this);
   this.showMoreReviewsButton = this.showMoreReviewsButton.bind(this);
@@ -34,7 +33,7 @@ var ReviewLoad = function() {
 };
 
 ReviewLoad.prototype.reviewShow = function() {
-
+  reviewsBlock.classList.add('reviews-list-loading');
 };
 
 ReviewLoad.prototype.isNextPageAvailable = function(_reviews, _page, pagesize) {
