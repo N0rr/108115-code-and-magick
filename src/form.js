@@ -26,7 +26,7 @@ cookieStart();
 formButton.disabled = true;
 formName.required = true;
 
-function checked(checkbox, formtext, button, formname, tip, tiptext) {
+var checked = function(checkbox, formtext, button, formname, tip, tiptext) {
   var check;
 
   for (var i = 0; i < checkbox.length; i++) {
@@ -54,7 +54,7 @@ function checked(checkbox, formtext, button, formname, tip, tiptext) {
   }
 }
 
-function checkValid(nameform, tipform) {
+var checkValid = function(nameform, tipform) {
   if (nameform.validity.valid) {
     tipform.classList.add('invisible');
   } else {
@@ -62,7 +62,7 @@ function checkValid(nameform, tipform) {
   }
 }
 
-function tipClose(formname, button, formtip, formtext) {
+var tipClose = function(formname, button, formtip, formtext) {
   if (formname.validity.valid && formtext.validity.valid) {
     button.disabled = false;
     formTip.classList.add('invisible');

@@ -118,7 +118,7 @@ var showMoreReviews = function() {
   });
 };
 
-function reviewCallback(error, loadedData) {
+var reviewCallback = function(error, loadedData) {
   var filterStorage = localStorage.getItem('filter');
   reviewsBlock.classList.remove('reviews-list-loading');
   if (error) {
