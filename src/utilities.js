@@ -4,22 +4,22 @@ module.exports = {
 
   /*ajax*/
 
-  getDataAjax: function getData(callback, url) {
+  getDataAjax: function getDataAjax(callback, url) {
     var xhr = new XMLHttpRequest();
 
-    xhr.onload = function(evt) {
+    xhr.addEventListener('load', function(evt) {
       var dataReviews = JSON.parse(evt.target.response);
-      callback(false, dataReviews);
-    };
+      callback(null, dataReviews);
+    });
 
-    xhr.onerror = function() {
+    xhr.addEventListener('error', function() {
       callback(true);
-    };
+    });
 
     xhr.timeout = 10000;
-    xhr.ontimeout = function() {
+    xhr.addEventListener('timeout', function() {
       callback(true);
-    };
+    });
 
     xhr.open('GET', url);
     xhr.send();
