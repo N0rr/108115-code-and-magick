@@ -40,7 +40,9 @@ Review.prototype.getReview = function(_data, _container) {
     }
   });
 
-  _container.appendChild(clone);
+  var createFragment = document.createDocumentFragment();
+  createFragment.appendChild(clone);
+  _container.appendChild(createFragment);
 
   return clone;
 };
