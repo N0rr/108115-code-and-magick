@@ -12,7 +12,6 @@ var reviewFilter = document.querySelector('.reviews-filter');
 /*review*/
 reviewFilter.classList.add('invisible');
 
-/*var reviews = [];*/
 var filtredReviews = [];
 var renderedReviews = [];
 
@@ -51,6 +50,7 @@ ReviewLoad.prototype.renderReviews = function(putReviews, page, replace) {
 
   var from = page * PAGE_SIZE;
   var to = from + PAGE_SIZE;
+
 
   putReviews.slice(from, to).forEach(function(review) {
     renderedReviews.push(new Review(review, reviewContainer));

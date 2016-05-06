@@ -8,9 +8,11 @@ module.exports = {
 
     var trigger = true;
 
+    var headerClouds = document.querySelector('.header-clouds');
+    var headerContainer = document.querySelector('header');
+
     window.addEventListener('scroll', function() {
-      var headerClouds = document.querySelector('.header-clouds');
-      var headerContainer = document.querySelector('header');
+
       var headerPosition = headerContainer.getBoundingClientRect();
       var headerTop = headerPosition.top;
       var HeaderVisibility = utilities.iSeeYou(headerClouds);

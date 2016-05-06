@@ -14,7 +14,6 @@ if ('content' in templateReview) {
 
 var Review = function(data, container) {
   this.data = data;
-
   this.element = this.getReview(this.data, container);
 
   this.element.addEventListener('click', this.onClickReviewQuiz);
@@ -25,6 +24,7 @@ var Review = function(data, container) {
 Review.prototype.getReview = function(_data, _container) {
 
   var clone = reviewClone.cloneNode(true);
+
   var photoAvatar = clone.querySelector('.review-author');
   var reviewText = clone.querySelector('.review-text');
 

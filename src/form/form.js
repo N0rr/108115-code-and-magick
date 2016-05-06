@@ -58,8 +58,10 @@ Formlistener.prototype.checked = function(checkbox, formtext, button, formname, 
   for (var i = 0; i < checkbox.length; i++) {
     if (checkbox[i].checked && checkbox[i].value >= 3) {
       check = true;
+      break;
     } else if (checkbox[i].checked && checkbox[i].value < 3) {
       check = false;
+      break;
     }
   }
   if (!check) {
